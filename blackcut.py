@@ -25,6 +25,6 @@ while(True):
         box = np.int0(box)
         cv2.drawContours(frame,[box],0,(0,0,255),1)
         x,y,w,h = cv2.boundingRect(maxContours)    
-        #cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
     cv2.imshow('frame',frame)
     cv2.waitKey(25)
