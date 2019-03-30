@@ -17,23 +17,14 @@ while(True):
     resImg , contours, hier = cv2.findContours(resImg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) 
     
     contoursAmount = len(contours)
-print("contours.length:",contoursAmount)
-if contoursAmount>0:
-    maxContours = contours[0]
-
-    #epsilon = 0.01 * cv2.arcLength(maxContours,True)
-    #approx = cv2.approxPolyDP(maxContours,epsilon,True)
-
-    minRect = cv2.minAreaRect(maxContours) # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
-    box = cv2.boxPoints(minRect)
-    box = np.int0(box)
-    cv2.drawContours(img,[box],0,(0,0,255),1)
-
-    x,y,w,h = cv2.boundingRect(maxContours)    
-    #cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
-
-
-
-    
+    print("contours.length:",contoursAmount)
+    if contoursAmount>0:
+        maxContours = contours[0]
+        minRect = cv2.minAreaRect(maxContours) # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
+        box = cv2.boxPoints(minRect)
+        box = np.int0(box)
+        cv2.drawContours(frame,[box],0,(0,0,255),1)
+        x,y,w,h = cv2.boundingRect(maxContours)    
+        #cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
     cv2.imshow('frame',frame)
     cv2.waitKey(25)
