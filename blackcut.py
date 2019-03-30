@@ -1,29 +1,22 @@
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-#
-img = cv2.imread('test.jpg')
-#滤波模糊
-#img = cv2.blur(img,(15,15))
+capture = cv2.VideoCapture(0)
+cap_width = capture.get(3)
+cap_height = capture.get(4)
+capture.set(cv2.CAP_PROP_FRAME_WIDTH,1280)
+capture.set(cv2.CAP_PROP_FRAME_HEIGHT,720)
 
-#过滤黑色
-hsvImg = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-lower_black = np.array([0,0,0])
-upper_black = np.array([180,255,46])
-maskBlack = cv2.inRange(hsvImg,lower_black,upper_black)
-res = cv2.bitwise_and(img,img,mask = maskBlack)
-
-'''
-kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(50, 50))
-opened = cv2.morphologyEx(resImg, cv2.MORPH_OPEN, kernel) 
-closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, kernel) 
-'''
-
-resImg = cv2.cvtColor(res,cv2.COLOR_BGR2GRAY)
-resImg , contours, hier = cv2.findContours(resImg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) 
-
-
-contoursAmount = len(contours)
+while(True):
+    ret,frame = capture.read()
+    hsvImg = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+    lower_black = np.array([0,0,0])
+    upper_black = np.array([180,255,46])
+    maskBlack = cv2.inRange(hsvImg,lower_black,upper_black)
+    res = cv2.bitwise_and(frame,frame,mask = maskBlack)
+    resImg = cv2.cvtColor(res,cv2.COLOR_BGR2GRAY)
+    resImg , contours, hier = cv2.findContours(resImg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) 
+    
+    contoursAmount = len(contours)
 print("contours.length:",contoursAmount)
 if contoursAmount>0:
     maxContours = contours[0]
@@ -41,7 +34,6 @@ if contoursAmount>0:
 
 
 
-cv2.namedWindow('test',cv2.WINDOW_NORMAL)
-cv2.imshow("test",img)
-cv2.waitKey()
-cv2.destroyAllWindows()
+    
+    cv2.imshow('frame',frame)
+    cv2.waitKey(25)
