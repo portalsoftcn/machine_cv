@@ -17,7 +17,7 @@ while(True):
     resImg , contours, hier = cv2.findContours(resImg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) 
     
     contoursAmount = len(contours)
-    rotate = 0;
+    rotate = 0
     if contoursAmount>0:
         maxContours = contours[0]
         minRect = cv2.minAreaRect(maxContours) # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
