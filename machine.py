@@ -4,7 +4,7 @@ import time
 
 class Arduino:
 
-    def __init__(self):
+    def __init__(self):pass
 
     def sendCmd(self,cmd):
         bus = smbus.SMBus(1)
