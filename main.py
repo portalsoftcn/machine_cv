@@ -41,7 +41,7 @@ def getFaceRotate( face ):
 frontRotate = getFaceRotate(frontFace)
 
 arduino = machine.Arduino()
-arduino.sendCmd(51)
+arduino.sendCmd(50)
 
 
 
