@@ -1,12 +1,12 @@
 import sys
 import smbus
 import time
-bus = smbus.SMBus(1)
-while True:
-    cmd = input("enter a command:")
-    print("command is %s"%cmd)
-    cmdcode = int(cmd)
-    if cmdcode == 0:
-        time.sleep(2)
-        exit()
-    bus.write_byte(0x04,cmdcode)
+
+class Arduino:
+
+    def __init__(self):
+
+    def sendCmd(self,cmd):
+        bus = smbus.SMBus(1)
+        cmdcode = int(cmd)
+        bus.write_byte(0x04,cmdcode)
