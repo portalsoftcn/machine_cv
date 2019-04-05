@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
-
-capture = cv2.VideoCapture(0)
-
+capture = cv2.VideoCapture(1)
 cap_width = capture.get(3)
 cap_height = capture.get(4)
 capture.set(cv2.CAP_PROP_FRAME_WIDTH,1280)
@@ -38,5 +36,5 @@ while(True):
     lintType = 4
     bottomLeftOrigin = 1
     cv2.putText(frame,text,org,fontFace,fontScale,fontColor,thickness,lintType)    
-    cv2.imshow('Front',frame)
+    cv2.imshow('Right',frame)
     cv2.waitKey(25)
