@@ -41,6 +41,8 @@ def getFaceRotate( face ):
 ###获取摄像头数据,计算某个面偏转角度
 frontRotate = getFaceRotate(frontFace)
 
+print("frontRotate:",frontRotate)
+
 arduino = machine.Arduino()
 arduino.sendCmd(50)
 
