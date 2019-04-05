@@ -3,12 +3,22 @@ import numpy as np
 
 class CameraState:
 
+    frontFace = "front"
+    rightFace = "right"
+    topFace = "top"
+
     cameraIndex = 0
 
-    def __init__(self,index):
+    def __init__(self,faceType):
+        if faceType == self.frontFace :
+            index = 0
+        elif faceType == self.rightFace :
+            index = 1
+        elif faceType == self.topFace :
+            index = 2
         self.cameraIndex = index
 
-    def getFaceRotate(self):
+    def getFaceState(self):
         rotate = 0
         capture = cv2.VideoCapture(self.cameraIndex)
         while(True):
@@ -30,6 +40,8 @@ class CameraState:
                 cv2.drawContours(frame,[box],0,(0,0,255),1)
                 x,y,w,h = cv2.boundingRect(maxContours)    
                 cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1)
+
+            '''
             text = 'rotate:%.1f'%rotate
             org = 40,80
             fontFace = cv2.FONT_HERSHEY_COMPLEX
@@ -38,7 +50,7 @@ class CameraState:
             thickness = 1
             lintType = 4
             bottomLeftOrigin = 1
-            cv2.putText(frame,text,org,fontFace,fontScale,fontColor,thickness,lintType)    
+            cv2.putText(frame,text,org,fontFace,fontScale,fontColor,thickness,lintType)
             cv2.imshow('frame',frame)
-            cv2.waitKey(25)
-        return rotate
+            '''
+        return rotate,frame
