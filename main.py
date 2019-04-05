@@ -1,4 +1,5 @@
 import machine
+import camerastate
 
 '''
 摄像头:
@@ -33,8 +34,8 @@ def getCameraIndex( face ):
 
 def getFaceRotate( face ):
     cameraIndex = getCameraIndex(face)
-
-    rotate = 0
+    camera = camerastate.CameraState(cameraIndex)
+    rotate = camera.getFaceRotate()
     return rotate
 
 ###获取摄像头数据,计算某个面偏转角度
