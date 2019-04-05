@@ -1,3 +1,4 @@
+import cv2
 import machine
 import camerastate
 
@@ -20,11 +21,24 @@ footBackRight = "BR"
 
 ###获取摄像头数据,计算某个面偏转角度
 
-faceType = camerastate.CameraState.frontFace
+faceType = camerastate.CameraState.rightFace
 camera = camerastate.CameraState(faceType)
-rotate,facePic = camera.getFaceState()
 
-print("faceType:",faceType,"Rotate:",rotate)
+#print("faceType:",faceType,"Rotate:",rotate)
+
+while True:
+    rotate,frame = camera.getFaceState()
+    text = 'rotate:%.1f'%rotate
+    org = 40,80
+    fontFace = cv2.FONT_HERSHEY_COMPLEX
+    fontScale = 1
+    fontColor = (0,0,255)
+    thickness = 1
+    lintType = 4
+    bottomLeftOrigin = 1
+    cv2.putText(frame,text,org,fontFace,fontScale,fontColor,thickness,lintType)    
+    cv2.imshow(faceType,frame)
+    cv2.waitKey(25)
 
 arduino = machine.Arduino()
 arduino.sendCmd(50)

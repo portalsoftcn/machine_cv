@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
 capture = cv2.VideoCapture(1)
+'''
 cap_width = capture.get(3)
 cap_height = capture.get(4)
 capture.set(cv2.CAP_PROP_FRAME_WIDTH,1280)
 capture.set(cv2.CAP_PROP_FRAME_HEIGHT,720)
-
+'''
 while(True):
     ret,frame = capture.read()
     hsvImg = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
