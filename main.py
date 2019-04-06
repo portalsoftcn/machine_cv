@@ -1,6 +1,7 @@
 import cv2
-import machine
-import camerastate
+from machine import Arduino
+from camerastate import CameraState
+from matplotlib import pyplot as plt
 
 '''
 摄像头:
@@ -20,15 +21,13 @@ footBackLeft = "BL"
 footBackRight = "BR"
 
 ###获取摄像头数据,计算某个面偏转角度
-
-faceType = camerastate.CameraState.rightFace
-camera = camerastate.CameraState(faceType)
-
-#print("faceType:",faceType,"Rotate:",rotate)
+frontCamera = CameraState(CameraState.frontFace)
+rightCamera = CameraState(CameraState.rightFace)
 
 while True:
-    rotate,frame = camera.getFaceState()
-    text = 'rotate:%.1f'%rotate
+    frontRotate,frontFrame = frontCamera.getFaceState()
+
+    text = 'rotate:%.1f'%frontRotate
     org = 40,80
     fontFace = cv2.FONT_HERSHEY_COMPLEX
     fontScale = 1
@@ -36,12 +35,10 @@ while True:
     thickness = 1
     lintType = 4
     bottomLeftOrigin = 1
-    cv2.putText(frame,text,org,fontFace,fontScale,fontColor,thickness,lintType)    
-    cv2.imshow(faceType,frame)
-    cv2.waitKey(25)
+    cv2.putText(frontFrame,text,org,fontFace,fontScale,fontColor,thickness,lintType)
+    cv2.imshow(faceType,frontFrame)
 
-arduino = machine.Arduino()
-arduino.sendCmd(50)
+    cv2.waitKey(25)
 
 
 

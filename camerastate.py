@@ -39,17 +39,4 @@ class CameraState:
             cv2.drawContours(frame,[box],0,(0,0,255),1)
             x,y,w,h = cv2.boundingRect(maxContours)    
             cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1)
-
-            '''
-            text = 'rotate:%.1f'%rotate
-            org = 40,80
-            fontFace = cv2.FONT_HERSHEY_COMPLEX
-            fontScale = 1
-            fontColor = (0,0,255)
-            thickness = 1
-            lintType = 4
-            bottomLeftOrigin = 1
-            cv2.putText(frame,text,org,fontFace,fontScale,fontColor,thickness,lintType)
-            cv2.imshow('frame',frame)
-            '''
         return rotate,frame
