@@ -25,8 +25,19 @@ frontCamera = CameraState(CameraState.frontFace)
 rightCamera = CameraState(CameraState.rightFace)
 
 while True:
+    cv2.waitKey(25)
+    
     frontRotate,frontFrame = frontCamera.getFaceState()
+    rightRotate,rightFrame = rightCamera.getFaceState()
 
+    plt.subplot(121),plt.imshow(frontFrame)
+    plt.title("Front"),plt.xticks([]),plt.yticks([])
+
+    plt.subplot(122),plt.imshow(rightFrame)
+    plt.title("Right"),plt.xticks([]),plt.yticks([])
+    plt.show()
+
+    '''
     text = 'rotate:%.1f'%frontRotate
     org = 40,80
     fontFace = cv2.FONT_HERSHEY_COMPLEX
@@ -37,8 +48,8 @@ while True:
     bottomLeftOrigin = 1
     cv2.putText(frontFrame,text,org,fontFace,fontScale,fontColor,thickness,lintType)
     cv2.imshow(faceType,frontFrame)
-
-    cv2.waitKey(25)
+    '''
+    
 
 
 
