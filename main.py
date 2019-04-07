@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from machine import Arduino
-from camerastate import CameraState
+from brickface import BrickFace
 from matplotlib import pyplot as plt
 
 '''
@@ -22,8 +22,8 @@ footBackLeft = "BL"
 footBackRight = "BR"
 
 ###获取摄像头数据,计算某个面偏转角度
-frontCamera = CameraState(CameraState.frontFace)
-rightCamera = CameraState(CameraState.rightFace)
+frontCamera = BrickFace(BrickFace.frontFace)
+rightCamera = BrickFace(BrickFace.rightFace)
 
 while True:
     
@@ -45,15 +45,7 @@ while True:
     
     plt.show() 
     
-    text = 'rotate:%.1f'%frontRotate
-    org = 40,80
-    fontFace = cv2.FONT_HERSHEY_COMPLEX
-    fontScale = 1
-    fontColor = (0,0,255)
-    thickness = 1
-    lintType = 4
-    bottomLeftOrigin = 1
-    cv2.putText(frontFrame,text,org,fontFace,fontScale,fontColor,thickness,lintType)
+    
     
     
     cv2.imshow("Right",rightFrame)
