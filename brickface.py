@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-class CameraState:
+class BrickFace:
 
     frontFace = "front"
     rightFace = "right"

@@ -33,8 +33,8 @@ while True:
     cv2.waitKey(20)
     
     frame = np.hstack( (frontFrame,rightFrame) )
-            
-    cv2.imshow("Front",frame)
+
+    cv2.imshow("BrickFaces",frame)
     
     '''
     plt.subplot(121),plt.imshow(frontFrame)
