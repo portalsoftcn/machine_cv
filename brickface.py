@@ -40,8 +40,7 @@ class BrickFace:
             cv2.drawContours(frame,[box],0,(0,0,255),1)
             x,y,w,h = cv2.boundingRect(maxContours)    
             cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1)
-
-            text = "{0} rotate:{:+.2f}".format(self.faceType,rotate)
+            text = self.faceType + " rotate:" + ( "{:+.1f}" % rotate ) 
             org = 40,80
             fontFace = cv2.FONT_HERSHEY_COMPLEX
             fontScale = 1
