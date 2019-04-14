@@ -4,6 +4,14 @@ import numpy as np
 class ContourUtil:
     def __init__(self):pass
 
+    def getContours(self,srcImg):
+        cnts, hierarchy = cv2.findContours(
+        srcImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        return cnts
+    
+    def drawContours(self,srcImg,cnts):
+        cv2.drawContours(srcImg,cnts,-1,(0,0,255),1)
+
     def getMaxContour(self,srcImg):
         maxCnt = None
         cnts, hierarchy = cv2.findContours(
