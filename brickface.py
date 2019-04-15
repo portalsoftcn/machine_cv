@@ -23,12 +23,14 @@ class BrickFace:
         rotate = 0
         capture = cv2.VideoCapture(self.cameraIndex)
         ret,frame = capture.read()
+
         hsvImg = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
         lower_black = np.array([0,0,0])
         upper_black = np.array([180,255,46])
         maskBlack = cv2.inRange(hsvImg,lower_black,upper_black)
         res = cv2.bitwise_and(frame,frame,mask = maskBlack)
         resImg = cv2.cvtColor(res,cv2.COLOR_BGR2GRAY)
+        
         resImg , contours, hier = cv2.findContours(resImg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) 
         contoursAmount = len(contours)
         if contoursAmount>0:

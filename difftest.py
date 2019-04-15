@@ -2,11 +2,14 @@ import cv2
 import numpy as np
 from scipy import ndimage
 from util import ContourUtil,TextUtil
+from matplotlib import pyplot as plt
+from roi import ROIDetect
 
 capture = cv2.VideoCapture(0)
 contourUtil = ContourUtil()
 textUtil = TextUtil()
-es = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 4))
+roiDetect = ROIDetect()
+es = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
 background = None
 rotate = 0
 
@@ -14,39 +17,37 @@ while True:
 
     ret, frame = capture.read()
     
-    '''
-    frameGray = cv2.cvtColor( frame.copy() , cv2.COLOR_BGR2GRAY )
-    ret , thresh = cv2.threshold( frameGray ,130,255,cv2.THRESH_BINARY )
-    cnts = contourUtil.getContours(thresh)
-    contourUtil.drawContours(frame,cnts)
-    '''
-    
     if background is None:
         background = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        background = cv2.GaussianBlur(background, (5, 5), 0)
+        background = cv2.GaussianBlur(background, (11, 11), 0)
         continue
-    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray_frame = cv2.GaussianBlur(gray_frame, (5, 5), 0)
-
-    diff = cv2.absdiff(background, gray_frame)
-    diff = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
-    diff = cv2.dilate(diff, es, iterations=2)
-
-    maxCnt = contourUtil.getMaxContour(diff.copy())
+    
+    maxCnt = roiDetect.getROIContour(background,frame)
+    
     contourUtil.drawRect(frame,maxCnt)
     brickImg = frame
-    if not maxCnt is None:
-        x, y, w, h = cv2.boundingRect(maxCnt)
-        
 
     '''
     rotate = contourUtil.drawMinRect(frame, maxCnt)
     text = " rotate: %.1f" % rotate
     textUtil.putText(frame,text)
     '''
-    cv2.imshow("brickImage", brickImg)
+    '''
+    plt.close()
 
+    plt.subplot(121),plt.imshow( cv2.cvtColor(brickImg,cv2.COLOR_BGR2RGB)  )
+    plt.title("brick"),plt.xticks([]),plt.yticks([])
+
+    plt.subplot(122),plt.imshow(cv2.cvtColor(diff,cv2.COLOR_BGR2RGB))
+    plt.title("diff"),plt.xticks([]),plt.yticks([])
+    
+    plt.show() 
+    '''
+    cv2.imshow("brick",frame)
+    
     if cv2.waitKey(1000//25) & 0xff == ord("q"):
         break
+      
+plt.close()
 cv2.destroyAllWindows()
 capture.release()
