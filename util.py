@@ -15,8 +15,6 @@ class ContourUtil:
 
     def getMaxContour(self,srcImg):
         maxCnt = None
-        #cnts, hierarchy = cv2.findContours(
-        #srcImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         cnts , hierarchy = self.getContours(srcImg)
         for cnt in cnts:
             if (maxCnt is None) or cv2.contourArea(cnt) >= cv2.contourArea(maxCnt):
