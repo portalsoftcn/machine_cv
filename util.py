@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import time
+import os
 
 class ContourUtil:
     def __init__(self):pass
@@ -21,18 +22,14 @@ class ContourUtil:
                 maxCnt = cnt
         return maxCnt,hierarchy
     
-    def drawRect(self,srcImg,cnt,offsetX,offsetY):
-        if offsetX is None:
-            offsetX = 0
-        if offsetY is None:
-            offsetY = 0
+    def drawRect(self,srcImg,cnt,offsetX=0,offsetY=0):
         if not cnt is None:
             x, y, w, h = cv2.boundingRect(cnt)
             x = offsetX + x
             y = offsetY + y
             cv2.rectangle(srcImg, (x, y), (x+w, y+h), (0, 255, 0), 1)
     
-    def drawMinRect(self,srcImg,cnt,hierarchy,offsetX,offsetY):
+    def drawMinRect(self,srcImg,cnt,hierarchy,offsetX=0,offsetY=0):
         rotate = 0
         if not cnt is None:
             minRect = cv2.minAreaRect(cnt)  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
@@ -75,7 +72,7 @@ class ImgUtil:
 class HSVFilteUtil:
     def __init__(self): pass
 
-    def getFilteRange(self):
+    def getFilteRange(self,dir='filtebg/'):
         
         minH = 255
         minS = 255
@@ -84,27 +81,27 @@ class HSVFilteUtil:
         maxS = 0
         maxV = 0
 
-        for imgIndex in range(1,7):
-            imgPath = "filteimg/%d.jpg" % imgIndex
-            frame = cv2.imread(imgPath)
-            hsvImg = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-            h,w = hsvImg.shape[:2]
+        path = os.getcwd()+"/"+dir+"/"
+        filelist = os.listdir(path)
+        for p in filelist:
+            if ".jpg" in p :
+                imgPath = path+p
+                frame = cv2.imread(imgPath)
+                hsvImg = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+                h,w = hsvImg.shape[:2]
+                for row in range(1, h):
+                    for col in range(1, w):
+                        pixItem = hsvImg[row][col]
+                        pixH = pixItem[0]
+                        pixS = pixItem[1]
+                        pixV = pixItem[2]
+                        minH = min(pixH, minH)
+                        minS = min(pixS, minS)
+                        minV = min(pixV, minV)
+                        maxH = max(pixH, maxH)
+                        maxS = max(pixS, maxS)
+                        maxV = max(pixV, maxV)
 
-            for pixH in range(1, h):
-                for pixW in range(1, w):
-                    pixItem = hsvImg[pixH][pixW]
-                    pixH = pixItem[0]
-                    pixS = pixItem[1]
-                    pixV = pixItem[2]
-
-                    minH = min(pixH, minH)
-                    minS = min(pixS, minS)
-                    minV = min(pixV, minV)
-                    maxH = max(pixH, maxH)
-                    maxS = max(pixS, maxS)
-                    maxV = max(pixV, maxV)
-        
-            #print("imgIndex:",imgIndex,(minH, minS, minV),(maxH, maxS, maxV))
         lower_range = np.array([minH, minS, minV])
         upper_range = np.array([maxH, maxS, maxV])
         #print("imgIndex--:",(minH, minS, minV),(maxH, maxS, maxV))
