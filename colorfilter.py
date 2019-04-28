@@ -8,7 +8,7 @@ contourUtil = ContourUtil()
 textUtil = TextUtil()
 hsvUtil = HSVFilteUtil()
 
-imgPath = "roi2.jpg"
+imgPath = "roi1.jpg"
 frame = cv2.imread(imgPath)
 
 hsvImg = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -20,9 +20,9 @@ res = cv2.bitwise_and(frame, frame, mask=maskBlue2)
 resGray = cv2.cvtColor(res,cv2.COLOR_BGR2GRAY)
 
 ret,thresh = cv2.threshold( resGray , 127 , 255, cv2.THRESH_BINARY )
-maxCnt = contourUtil.getMaxContour(thresh)
-#contourUtil.drawRect(frame,maxCnt)
-contourUtil.drawMinRect(frame,maxCnt)
+maxCnt,hierarchy = contourUtil.getMaxContour(thresh)
+contourUtil.drawRect(frame,maxCnt)
+contourUtil.drawMinRect(frame,maxCnt,hierarchy)
 
 cv2.imshow("resGray", resGray)
 cv2.imshow("thresh", thresh)

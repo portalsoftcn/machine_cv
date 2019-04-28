@@ -13,6 +13,9 @@ hsvUtil = HSVFilteUtil()
 imgUtil = ImgUtil()
 roiDetect = ROIDetect()
 es = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (21, 21))
+
+lower_blue,upper_blue = hsvUtil.getFilteRange()
+
 while True:
     ret, frame = capture.read()
     diff = roiDetect.getROIByDiff(frame)
@@ -28,11 +31,11 @@ while True:
         imgUtil.saveImg(roiImg)
 
         hsvImg = cv2.cvtColor(roiImg, cv2.COLOR_BGR2HSV)
-        lower_blue,upper_blue = hsvUtil.getFilteRange()
+
         maskBlue = cv2.inRange(hsvImg, lower_blue, upper_blue)
         maskBlue2=np.where((maskBlue==255),0,255).astype('uint8')
-
         res = cv2.bitwise_and(roiImg, roiImg, mask=maskBlue2)
+        
         resGray = cv2.cvtColor(res,cv2.COLOR_BGR2GRAY)
 
         ret,thresh = cv2.threshold( resGray , 127 , 255, cv2.THRESH_BINARY )
