@@ -48,7 +48,7 @@ while True:
     textUtil.putText(frame,text)
     cv2.imshow("brick",frame)
     
-    if cv2.waitKey(1000//25) & 0xff == ord("q"):
+    if cv2.waitKey(1000//40) & 0xff == ord("q"):
         break
       
 plt.close()
