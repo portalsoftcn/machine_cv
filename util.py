@@ -74,13 +74,13 @@ class HSVFilteUtil:
 
     def getFilteRange(self,dir='filtebg/'):
         
-        minH = 255
-        minS = 255
-        minV = 255
-        maxH = 0
-        maxS = 0
-        maxV = 0
-
+        minH = 86
+        minS = 27
+        minV = 106
+        maxH = 101
+        maxS = 255
+        maxV = 255
+        '''
         path = os.getcwd()+"/"+dir+"/"
         filelist = os.listdir(path)
         for p in filelist:
@@ -101,8 +101,15 @@ class HSVFilteUtil:
                         maxH = max(pixH, maxH)
                         maxS = max(pixS, maxS)
                         maxV = max(pixV, maxV)
-
+        '''
         lower_range = np.array([minH, minS, minV])
         upper_range = np.array([maxH, maxS, maxV])
         #print("imgIndex--:",(minH, minS, minV),(maxH, maxS, maxV))
         return lower_range,upper_range
+
+    def filteByRange(self,roiImg,lower_range,upper_range):
+        hsvImg = cv2.cvtColor(roiImg, cv2.COLOR_BGR2HSV)
+        maskBlue = cv2.inRange(hsvImg, lower_range, upper_range)
+        maskBlue2=np.where((maskBlue==255),0,255).astype('uint8')
+        res = cv2.bitwise_and(roiImg, roiImg, mask=maskBlue2)
+        return res
