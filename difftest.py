@@ -6,7 +6,9 @@ from util import ContourUtil,TextUtil,ImgUtil,HSVFilteUtil
 from matplotlib import pyplot as plt
 from roi import ROIDetect
 
-capture = cv2.VideoCapture("http://192.168.1.8:8081/")
+capture = cv2.VideoCapture("http://192.168.1.8:8002/?action=stream")
+capture.set(cv2.CAP_PROP_FRAME_WIDTH,1280) 
+capture.set(cv2.CAP_PROP_FRAME_HEIGHT,720) 
 contourUtil = ContourUtil()
 textUtil = TextUtil()
 hsvUtil = HSVFilteUtil()
