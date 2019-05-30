@@ -2,7 +2,7 @@ import cv2
 from util import ContourUtil,TextUtil,ImgUtil,HSVFilteUtil
 from roi import ROIDetect
 
-captureFront = cv2.VideoCapture("http://192.168.1.8:8002/?action=stream")
+#captureFront = cv2.VideoCapture("http://192.168.1.8:8002/?action=stream")
 captureLeft = cv2.VideoCapture("http://192.168.1.8:8001/?action=stream")
 
 roiDetectLeft = ROIDetect()
@@ -45,16 +45,16 @@ def processImg(frame,diff):
     return frame
 
 while True:
-    ret, frameFront = captureFront.read()
+    #ret, frameFront = captureFront.read()
     ret, frameLeft = captureLeft.read()
 
-    diffFront = roiDetectFront.getROIByDiff(frameFront)
+    #diffFront = roiDetectFront.getROIByDiff(frameFront)
     diffLeft = roiDetectLeft.getROIByDiff(frameLeft)
 
-    frameFront = processImg(frameFront,diffFront)
+    #frameFront = processImg(frameFront,diffFront)
     frameLeft = processImg(frameLeft,diffLeft)
 
-    cv2.imshow("brickFront",frameFront)
+    #cv2.imshow("brickFront",frameFront)
     cv2.imshow("brickLeft",frameLeft)
 
     key = cv2.waitKey(1000//40)

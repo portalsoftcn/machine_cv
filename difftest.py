@@ -53,6 +53,7 @@ while True:
         rotate = contourUtil.drawMinRect(frame,maxCnt,hierarchy,x,y)
         rightRotate = abs(rotate)
         leftRotate = 90 - rightRotate
+        
         '''
         maxLR = max(leftRotate,rightRotate)
         maxRotate = max(maxLR,maxRotate)
