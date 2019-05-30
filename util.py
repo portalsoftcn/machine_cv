@@ -76,11 +76,18 @@ class HSVFilteUtil:
         
         minH = 86
         minS = 27
-        minV = 106
-        maxH = 101
+        minV = 105
+        maxH = 108
         maxS = 255
         maxV = 255
+
         '''
+        minH = 255
+        minS = 255
+        minV = 255
+        maxH = 0
+        maxS = 0
+        maxV = 0
         path = os.getcwd()+"/"+dir+"/"
         filelist = os.listdir(path)
         for p in filelist:

@@ -38,7 +38,7 @@ while True:
         x, y, w, h = cv2.boundingRect(maxCnt)
         roiImg = frame[y:y+h,x:x+w]
 
-        #imgUtil.saveImg(roiImg)
+        imgUtil.saveImg(roiImg)
 
         res = hsvUtil.filteByRange(roiImg,lower_blue,upper_blue)
 
