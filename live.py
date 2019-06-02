@@ -59,7 +59,6 @@ def getRtmpPipe(camera,rtmpUrl):
     fps = int(fps)
     hz = int(1000.0 / fps)
     print ('size:'+ sizeStr + ' fps:' + str(fps) + ' hz:' + str(hz))
-    #fps = 15
     #sizeStr = '600x450'
 
     # 直播管道输出 
@@ -89,16 +88,16 @@ def getRtmpFrame(camera):
     return frame
 
 def pushRtmp():
-    #frontFrame = getRtmpFrame(frontCamera)
-    ret1,frontFrame = frontCamera.read() 
+    frontFrame = getRtmpFrame(frontCamera)
+    #ret1,frontFrame = frontCamera.read() 
     frontPipe.stdin.write(frontFrame.tostring())  
-
-    #backFrame = getRtmpFrame(backCamera)
-    ret1,backFrame = backCamera.read() 
+    
+    backFrame = getRtmpFrame(backCamera)
+    #ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
-
+    
     #leftFrame = getRtmpFrame(leftCamera)
-    #ret2,leftFrame = leftCamera.read() 
+    #ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(backFrame.tostring())  
 
     #leftFrame = getRtmpFrame(leftCamera)
