@@ -115,19 +115,20 @@ rightCamera = None
 backCamera = None
 
 deviceIP = "192.168.1.8"
+serverIP = "192.168.1.11"
 
 frontCamera = getCamera("http://"+deviceIP+":8001/?action=stream")
-frontPipe = getRtmpPipe(frontCamera,'rtmp://127.0.0.1:1931/front/mystream')
+frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP+':1931/front/mystream')
 
 backCamera = getCamera("http://"+deviceIP+":8003/?action=stream")
-backPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/back/mystream')
+backPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP+':1931/back/mystream')
 
 #leftCamera = getCamera("http://"+deviceIP+":8004/?action=stream")
-leftPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/left/mystream')
+leftPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP+':1931/left/mystream')
 
-topPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/top/mystream')
+topPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP+':1931/top/mystream')
 
-rightPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/right/mystream')
+rightPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP+':1931/right/mystream')
 
 def cameraRelease():
     frontCamera.release()
