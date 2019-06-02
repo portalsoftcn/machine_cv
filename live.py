@@ -42,6 +42,7 @@ def processImg(frame,diff):
     return frame
 
 def getCamera(cameraUrl):
+    print(cameraUrl)
     camera = cv2.VideoCapture(cameraUrl) # 从文件读取视频
     #这里的摄像头可以在树莓派3b上使用
     if (camera.isOpened()):# 判断视频是否打开 
@@ -54,12 +55,12 @@ def getRtmpPipe(camera,rtmpUrl):
     # 视频属性
     size = (int(camera.get(cv2.CAP_PROP_FRAME_WIDTH)), int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     sizeStr = str(size[0]) + 'x' + str(size[1])
-    #sizeStr = '400x300'
     fps = camera.get(cv2.CAP_PROP_FPS)  # 30p/self
     fps = int(fps)
     hz = int(1000.0 / fps)
     print ('size:'+ sizeStr + ' fps:' + str(fps) + ' hz:' + str(hz))
-    #fps = 12
+    #fps = 15
+    #sizeStr = '600x450'
 
     # 直播管道输出 
     # ffmpeg推送rtmp 重点 ： 通过管道 共享数据的方式
@@ -88,21 +89,23 @@ def getRtmpFrame(camera):
     return frame
 
 def pushRtmp():
-    frontFrame = getRtmpFrame(frontCamera)
-    frontPipe.stdin.write(frontFrame.tostring())  
-    '''
     #frontFrame = getRtmpFrame(frontCamera)
-    backPipe.stdin.write(frontFrame.tostring())  
+    ret1,frontFrame = frontCamera.read() 
+    frontPipe.stdin.write(frontFrame.tostring())  
 
-    leftFrame = getRtmpFrame(leftCamera)
-    leftPipe.stdin.write(leftFrame.tostring())  
+    #backFrame = getRtmpFrame(backCamera)
+    ret1,backFrame = backCamera.read() 
+    backPipe.stdin.write(backFrame.tostring())  
 
     #leftFrame = getRtmpFrame(leftCamera)
-    topPipe.stdin.write(leftFrame.tostring())  
+    #ret2,leftFrame = leftCamera.read() 
+    leftPipe.stdin.write(backFrame.tostring())  
 
     #leftFrame = getRtmpFrame(leftCamera)
-    rightPipe.stdin.write(leftFrame.tostring())  
-    '''
+    topPipe.stdin.write(backFrame.tostring())  
+
+    #leftFrame = getRtmpFrame(leftCamera)
+    rightPipe.stdin.write(backFrame.tostring())  
 
 #业务数据计算
 frontCamera = None
@@ -111,25 +114,33 @@ topCamera = None
 rightCamera = None
 backCamera = None
 
-frontCamera = getCamera("http://192.168.1.12:8001/?action=stream")
+deviceIP = "192.168.1.8"
+
+frontCamera = getCamera("http://"+deviceIP+":8001/?action=stream")
 frontPipe = getRtmpPipe(frontCamera,'rtmp://127.0.0.1:1931/front/mystream')
 
-backPipe = getRtmpPipe(frontCamera,'rtmp://127.0.0.1:1931/back/mystream')
+backCamera = getCamera("http://"+deviceIP+":8003/?action=stream")
+backPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/back/mystream')
 
-leftCamera = getCamera("http://192.168.1.12:8003/?action=stream")
-leftPipe = getRtmpPipe(frontCamera,'rtmp://127.0.0.1:1931/left/mystream')
+#leftCamera = getCamera("http://"+deviceIP+":8004/?action=stream")
+leftPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/left/mystream')
 
-topPipe = getRtmpPipe(leftCamera,'rtmp://127.0.0.1:1931/top/mystream')
+topPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/top/mystream')
 
-rightPipe = getRtmpPipe(leftCamera,'rtmp://127.0.0.1:1931/right/mystream')
+rightPipe = getRtmpPipe(backCamera,'rtmp://127.0.0.1:1931/right/mystream')
 
 def cameraRelease():
     frontCamera.release()
-    leftCamera.release()
+    backCamera.release()
+    #leftCamera.release()
     #topCamera.release()
     #rightCamera.release()
-    #backCamera.release()
 
 while True:
     pushRtmp()
+    '''
+    key = cv2.waitKey(40)
+    if key == ord('q'):
+        break
+    '''
 cameraRelease()
