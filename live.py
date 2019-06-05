@@ -109,20 +109,20 @@ def getRtmpFrame(camera):
     return frame
 
 def pushRtmp():
-    #frontFrame = getRtmpFrame(frontCamera)
-    ret1,frontFrame = frontCamera.read() 
+    frontFrame = getRtmpFrame(frontCamera)
+    #ret1,frontFrame = frontCamera.read() 
     frontPipe.stdin.write(frontFrame.tostring())  
     
-    #backFrame = getRtmpFrame(backCamera)
-    ret2,backFrame = backCamera.read() 
+    backFrame = getRtmpFrame(backCamera)
+    #ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
     
-    #leftFrame = getRtmpFrame(leftCamera)
-    ret3,leftFrame = leftCamera.read() 
+    leftFrame = getRtmpFrame(leftCamera)
+    #ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(leftFrame.tostring())  
 
-    #leftFrame = getRtmpFrame(leftCamera)
-    ret4,rightFrame = rightCamera.read() 
+    rightFrame = getRtmpFrame(rightCamera)
+    #ret4,rightFrame = rightCamera.read() 
     rightPipe.stdin.write(rightFrame.tostring())  
 
     #topFrame = getRtmpFrame(topCamera)
