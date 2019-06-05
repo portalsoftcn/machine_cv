@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from scipy import ndimage
 from util import ContourUtil,TextUtil
-from matplotlib import pyplot as plt
 
 class ROIDetect:
 
