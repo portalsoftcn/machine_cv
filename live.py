@@ -16,11 +16,10 @@ kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(2, 2))
 lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 #业务数据计算
-topCamera = None
 
-deviceIP = "192.168.1.8"
-deviceIP2 = "192.168.1.15"
-serverIP = "192.168.1.11"
+deviceIP = "192.168.1.9"
+deviceIP2 = "192.168.1.11"
+serverIP = "192.168.1.12"
 
 def getCamera(cameraUrl):
     print(cameraUrl)
@@ -73,7 +72,8 @@ leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP+':1931/device/left1')
 rightCamera = getCamera("http://"+deviceIP2+":8003/?action=stream")
 rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP+':1931/device/right1')
 
-topPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP+':1931/device/top1')
+topCamera = getCamera("http://"+deviceIP2+":8005/?action=stream")
+topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
 
 def processImg(frame,diff):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -109,31 +109,32 @@ def getRtmpFrame(camera):
     return frame
 
 def pushRtmp():
-    frontFrame = getRtmpFrame(frontCamera)
-    #ret1,frontFrame = frontCamera.read() 
+    #frontFrame = getRtmpFrame(frontCamera)
+    ret1,frontFrame = frontCamera.read() 
     frontPipe.stdin.write(frontFrame.tostring())  
     
-    backFrame = getRtmpFrame(backCamera)
-    #ret2,backFrame = backCamera.read() 
+    #backFrame = getRtmpFrame(backCamera)
+    ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
     
-    leftFrame = getRtmpFrame(leftCamera)
-    #ret3,leftFrame = leftCamera.read() 
+    #leftFrame = getRtmpFrame(leftCamera)
+    ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(leftFrame.tostring())  
 
-    rightFrame = getRtmpFrame(rightCamera)
-    #ret4,rightFrame = rightCamera.read() 
+    #rightFrame = getRtmpFrame(rightCamera)
+    ret4,rightFrame = rightCamera.read() 
     rightPipe.stdin.write(rightFrame.tostring())  
 
     #topFrame = getRtmpFrame(topCamera)
-    topPipe.stdin.write(rightFrame.tostring())  
+    ret5,topFrame = topCamera.read() 
+    topPipe.stdin.write(topFrame.tostring())  
 
 def cameraRelease():
     frontCamera.release()
     backCamera.release()
     leftCamera.release()
     rightCamera.release()
-    #topCamera.release()
+    topCamera.release()
 
 
 
