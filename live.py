@@ -45,15 +45,15 @@ def getRtmpPipe(camera,rtmpUrl):
     # ffmpeg推送rtmp 重点 ： 通过管道 共享数据的方式
     frontCommand = ['ffmpeg',
         '-y',
+        '-hwaccel','qsv',
         '-f', 'rawvideo',
         '-vcodec','rawvideo',
         '-pix_fmt', 'bgr24',
         '-s', sizeStr,
         '-r', str(fps),
         '-i', '-',
-        '-c:v', 'libx264',
-        '-pix_fmt', 'yuv420p',
-        '-preset', 'ultrafast',
+        '-c:v', 'h264_qsv',
+        '-pix_fmt', 'nv12',
         '-f', 'flv', 
         rtmpUrl]
     #管道特性配置
