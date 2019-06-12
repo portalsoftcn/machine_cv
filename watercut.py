@@ -45,3 +45,7 @@ cv2.imshow("brick",brickImg)
 
 cv2.waitKey()
 cv2.destroyAllWindows()
+
+'-c:v', 'libx264',
+        '-pix_fmt', 'yuv420p',
+        '-preset', 'ultrafast',
