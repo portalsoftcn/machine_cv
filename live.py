@@ -59,9 +59,11 @@ def getRtmpPipe(camera,rtmpUrl):
     pipe = sp.Popen(frontCommand, stdin=sp.PIPE) #,shell=False
     return pipe
 
+'''
 frontCamera = getCamera("http://"+deviceIP+":8001/?action=stream")
 #frontCamera = getCamera(0)
 frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP+':1931/device/front1')
+'''
 
 backCamera = getCamera("http://"+deviceIP+":8003/?action=stream")
 #backCamera = getCamera(1)
@@ -78,6 +80,7 @@ rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP+':1931/device/right1')
 topCamera = getCamera("http://"+deviceIP+":8009/?action=stream")
 #topCamera = getCamera(2)
 topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
+'''
 
 def processImg(frame,diff):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -113,45 +116,35 @@ def getRtmpFrame(camera):
     return frame
 
 def pushRtmp():
-    #frontFrame = getRtmpFrame(frontCamera)
-    ret1,frontFrame = frontCamera.read() 
+    '''
+    frontFrame = getRtmpFrame(frontCamera)
+    #ret1,frontFrame = frontCamera.read() 
     frontPipe.stdin.write(frontFrame.tostring())  
     #cv2.imshow("frontFrame",frontFrame)
     #'''
-    
+
     #backFrame = getRtmpFrame(backCamera)
     ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
     #cv2.imshow("backFrame",backFrame)
-    #'''
-
+    
+    '''
     #leftFrame = getRtmpFrame(leftCamera)
     ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(leftFrame.tostring())  
     #cv2.imshow("leftFrame",leftFrame)
-
+    
     #rightFrame = getRtmpFrame(rightCamera)
     ret4,rightFrame = rightCamera.read() 
     rightPipe.stdin.write(rightFrame.tostring())  
     #cv2.imshow("rightFrame",rightFrame)
 
+    
     #topFrame = getRtmpFrame(topCamera)
     ret5,topFrame = topCamera.read() 
     topPipe.stdin.write(topFrame.tostring())  
     #cv2.imshow("topFrame",topFrame)
-
-def cameraRelease():
-    frontCamera.release()
-    backCamera.release()
-    leftCamera.release()
-    rightCamera.release()
-    topCamera.release()
-
-
+    '''
 
 while True:
     pushRtmp()
-    key = cv2.waitKey(40)
-    if key == ord('q'):
-        break
-cameraRelease()
