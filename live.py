@@ -17,8 +17,10 @@ lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 #业务数据计算
 
-deviceIP = "192.168.1.9"
-serverIP = "192.168.1.11"
+#deviceIP = "192.168.1.9"
+
+serverIP9 = "192.168.1.9"
+serverIP11 = "192.168.1.11"
 
 def getCamera(cameraUrl):
     print(cameraUrl)
@@ -58,27 +60,20 @@ def getRtmpPipe(camera,rtmpUrl):
     #管道特性配置
     pipe = sp.Popen(frontCommand, stdin=sp.PIPE) #,shell=False
     return pipe
+frontCamera = getCamera("http://"+serverIP9+":8001/?action=stream")
+frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP9+':1931/device/front1')
+
+backCamera = getCamera("http://"+serverIP9+":8003/?action=stream")
+backPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP9+':1931/device/back1')
+
+leftCamera = getCamera("http://"+serverIP11+":8001/?action=stream")
+leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP11+':1931/device/left1')
+
+rightCamera = getCamera("http://"+serverIP11+":8003/?action=stream")
+rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP11+':1931/device/right1')
 
 '''
-frontCamera = getCamera("http://"+deviceIP+":8001/?action=stream")
-#frontCamera = getCamera(0)
-frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP+':1931/device/front1')
-'''
-
-backCamera = getCamera("http://"+deviceIP+":8003/?action=stream")
-#backCamera = getCamera(1)
-backPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP+':1931/device/back1')
-
-leftCamera = getCamera("http://"+deviceIP+":8005/?action=stream")
-#leftCamera = getCamera(2)
-leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP+':1931/device/left1')
-
-rightCamera = getCamera("http://"+deviceIP+":8007/?action=stream")
-#rightCamera = getCamera(2)
-rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP+':1931/device/right1')
-
 topCamera = getCamera("http://"+deviceIP+":8009/?action=stream")
-#topCamera = getCamera(2)
 topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
 '''
 
@@ -116,34 +111,26 @@ def getRtmpFrame(camera):
     return frame
 
 def pushRtmp():
-    '''
-    frontFrame = getRtmpFrame(frontCamera)
-    #ret1,frontFrame = frontCamera.read() 
+    #frontFrame = getRtmpFrame(frontCamera)
+    ret1,frontFrame = frontCamera.read() 
     frontPipe.stdin.write(frontFrame.tostring())  
-    #cv2.imshow("frontFrame",frontFrame)
-    #'''
-
+    
     #backFrame = getRtmpFrame(backCamera)
     ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
-    #cv2.imshow("backFrame",backFrame)
-    
-    '''
+
     #leftFrame = getRtmpFrame(leftCamera)
     ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(leftFrame.tostring())  
-    #cv2.imshow("leftFrame",leftFrame)
-    
+
     #rightFrame = getRtmpFrame(rightCamera)
     ret4,rightFrame = rightCamera.read() 
     rightPipe.stdin.write(rightFrame.tostring())  
-    #cv2.imshow("rightFrame",rightFrame)
 
-    
-    #topFrame = getRtmpFrame(topCamera)
-    ret5,topFrame = topCamera.read() 
+    '''
+    topFrame = getRtmpFrame(topCamera)
+    #ret5,topFrame = topCamera.read() 
     topPipe.stdin.write(topFrame.tostring())  
-    #cv2.imshow("topFrame",topFrame)
     '''
 
 while True:
