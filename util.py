@@ -27,7 +27,7 @@ class ContourUtil:
             x, y, w, h = cv2.boundingRect(cnt)
             x = offsetX + x
             y = offsetY + y
-            cv2.rectangle(srcImg, (x, y), (x+w, y+h), (0, 255, 0), 1)
+            cv2.rectangle(srcImg, (x, y), (x+w, y+h), (0, 255, 0), 2)
     
     def drawMinRect(self,srcImg,cnt,hierarchy,offsetX=0,offsetY=0):
         rotate = 0
@@ -36,14 +36,14 @@ class ContourUtil:
             rotate = minRect[2]
             box = cv2.boxPoints(minRect)
             box = np.int0(box)
-            cv2.drawContours(srcImg, [box], 0, (0, 0, 255), 1,8,hierarchy,0,(offsetX,offsetY))
+            cv2.drawContours(srcImg, [box], 0, (0, 0, 255), 2,8,hierarchy,0,(offsetX,offsetY))
         return rotate
 
 class TextUtil:
     def __init__(self):pass
     
     def putText(self,srcImg,text):
-        org = 40, 80
+        org = 0, 25
         fontFace = cv2.FONT_HERSHEY_COMPLEX
         fontScale = 1
         fontColor = (0, 0, 0)
