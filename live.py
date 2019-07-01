@@ -60,19 +60,18 @@ def getRtmpPipe(camera,rtmpUrl):
     #管道特性配置
     pipe = sp.Popen(frontCommand, stdin=sp.PIPE) #,shell=False
     return pipe
-frontCamera = getCamera("http://"+serverIP9+":8001/?action=stream")
+frontCamera = getCamera("/dev/video0")
 frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP9+':1931/device/front1')
 
-backCamera = getCamera("http://"+serverIP9+":8003/?action=stream")
+backCamera = getCamera("/dev/video2")
 backPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP9+':1931/device/back1')
-
-leftCamera = getCamera("http://"+serverIP11+":8001/?action=stream")
+'''
+leftCamera = getCamera("http://"+serverIP9+":8001/?action=stream")
 leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP11+':1931/device/left1')
 
-rightCamera = getCamera("http://"+serverIP11+":8003/?action=stream")
+rightCamera = getCamera("http://"+serverIP9+":8003/?action=stream")
 rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP11+':1931/device/right1')
 
-'''
 topCamera = getCamera("http://"+deviceIP+":8009/?action=stream")
 topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
 '''
@@ -118,16 +117,16 @@ def pushRtmp():
     #backFrame = getRtmpFrame(backCamera)
     ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
-
+    '''
     #leftFrame = getRtmpFrame(leftCamera)
     ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(leftFrame.tostring())  
-
+    
     #rightFrame = getRtmpFrame(rightCamera)
     ret4,rightFrame = rightCamera.read() 
     rightPipe.stdin.write(rightFrame.tostring())  
 
-    '''
+    
     topFrame = getRtmpFrame(topCamera)
     #ret5,topFrame = topCamera.read() 
     topPipe.stdin.write(topFrame.tostring())  
