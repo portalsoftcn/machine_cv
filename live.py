@@ -21,6 +21,7 @@ lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 serverIP9 = "192.168.1.9"
 serverIP11 = "192.168.1.11"
+rtmpserver = "47.111.132.9"
 
 def getCamera(cameraUrl):
     print(cameraUrl)
@@ -61,10 +62,10 @@ def getRtmpPipe(camera,rtmpUrl):
     pipe = sp.Popen(frontCommand, stdin=sp.PIPE) #,shell=False
     return pipe
 frontCamera = getCamera("/dev/video0")
-frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP9+':1931/device/front1')
+frontPipe = getRtmpPipe(frontCamera,'rtmp://'+rtmpserver+':1931/device/front1')
 
 backCamera = getCamera("/dev/video2")
-backPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP9+':1931/device/back1')
+backPipe = getRtmpPipe(backCamera,'rtmp://'+rtmpserver+':1931/device/back1')
 '''
 leftCamera = getCamera("http://"+serverIP9+":8001/?action=stream")
 leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP11+':1931/device/left1')
