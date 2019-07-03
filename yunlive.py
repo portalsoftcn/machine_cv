@@ -72,10 +72,10 @@ leftPipe = getRtmpPipe(leftCamera,'rtmp://'+rtmpserver+':1931/device/left1')
 
 rightCamera = getCamera('rtmp://'+rtmpserver+':1931/yun/right1')
 rightPipe = getRtmpPipe(rightCamera,'rtmp://'+rtmpserver+':1931/device/right1')
-'''
-topCamera = getCamera("http://"+deviceIP+":8009/?action=stream")
-topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
-'''
+
+topCamera = getCamera('rtmp://'+rtmpserver+':1931/yun/top1')
+topPipe = getRtmpPipe(topCamera,'rtmp://'+rtmpserver+':1931/device/top1')
+
 
 def processImg(frame,diff):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -115,23 +115,23 @@ def pushRtmp():
     ret1,frontFrame = frontCamera.read() 
     frontPipe.stdin.write(frontFrame.tostring())  
     
-    backFrame = getRtmpFrame(backCamera)
-    #ret2,backFrame = backCamera.read() 
+    #backFrame = getRtmpFrame(backCamera)
+    ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
     
-    leftFrame = getRtmpFrame(leftCamera)
-    #ret3,leftFrame = leftCamera.read() 
+    #leftFrame = getRtmpFrame(leftCamera)
+    ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(leftFrame.tostring())  
     
-    rightFrame = getRtmpFrame(rightCamera)
-    #ret4,rightFrame = rightCamera.read() 
+    #rightFrame = getRtmpFrame(rightCamera)
+    ret4,rightFrame = rightCamera.read() 
     rightPipe.stdin.write(rightFrame.tostring())  
 
-    '''
-    topFrame = getRtmpFrame(topCamera)
-    #ret5,topFrame = topCamera.read() 
+
+    #topFrame = getRtmpFrame(topCamera)
+    ret5,topFrame = topCamera.read() 
     topPipe.stdin.write(topFrame.tostring())  
-    '''
+
 
 while True:
     pushRtmp()
