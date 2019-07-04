@@ -11,6 +11,7 @@ ln -s /usr/local/python3/bin/python3 /usr/local/bin/python3
 ln -s /usr/local/python3/bin/pip3 /usr/local/bin/pip3
 pip3 install pip --upgrade
 pip3 install opencv-python
+pip3 install scipy
 cd /home/machine_cv
 python3 live.py
 
