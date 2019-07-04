@@ -138,7 +138,7 @@ Return Value: 0 if everything is fine
 int input_init(input_parameter *param, int id)
 {
     char *dev = "/dev/video0", *s;
-    int width = 1280, height = 720, fps = -1, format = V4L2_PIX_FMT_YUYV, i;
+    int width = 1280, height = 720, fps = -1, format = V4L2_PIX_FMT_MJPEG, i;
     v4l2_std_id tvnorm = V4L2_STD_UNKNOWN;
     context *pctx;
     context_settings *settings;

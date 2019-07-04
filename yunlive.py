@@ -17,11 +17,10 @@ lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 #业务数据计算
 
-#deviceIP = "192.168.1.9"
 
 serverIP9 = "192.168.1.9"
 serverIP11 = "192.168.1.11"
-rtmpserver = "47.111.132.9"
+rtmpserver = "47.111.146.164"
 
 def getCamera(cameraUrl):
     print(cameraUrl)
@@ -38,6 +37,7 @@ def getRtmpPipe(camera,rtmpUrl):
     size = (int(camera.get(cv2.CAP_PROP_FRAME_WIDTH)), int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     sizeStr = str(size[0]) + 'x' + str(size[1])
     fps = camera.get(cv2.CAP_PROP_FPS)  # 30p/self
+    fps = 25
     fps = int(fps)
     hz = int(1000.0 / fps)
     print ('size:'+ sizeStr + ' fps:' + str(fps) + ' hz:' + str(hz))
@@ -61,21 +61,21 @@ def getRtmpPipe(camera,rtmpUrl):
     #管道特性配置
     pipe = sp.Popen(frontCommand, stdin=sp.PIPE) #,shell=False
     return pipe
-frontCamera = getCamera("/dev/video0")
+frontCamera = getCamera("rtmp://"+rtmpserver+":1931/yun/front1")
 frontPipe = getRtmpPipe(frontCamera,'rtmp://'+rtmpserver+':1931/device/front1')
 
-backCamera = getCamera("/dev/video2")
+backCamera = getCamera('rtmp://'+rtmpserver+':1931/yun/back1')
 backPipe = getRtmpPipe(backCamera,'rtmp://'+rtmpserver+':1931/device/back1')
-'''
-leftCamera = getCamera("http://"+serverIP9+":8001/?action=stream")
-leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP11+':1931/device/left1')
 
-rightCamera = getCamera("http://"+serverIP9+":8003/?action=stream")
-rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP11+':1931/device/right1')
+leftCamera = getCamera('rtmp://'+rtmpserver+':1931/yun/left1')
+leftPipe = getRtmpPipe(leftCamera,'rtmp://'+rtmpserver+':1931/device/left1')
 
-topCamera = getCamera("http://"+deviceIP+":8009/?action=stream")
-topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
-'''
+rightCamera = getCamera('rtmp://'+rtmpserver+':1931/yun/right1')
+rightPipe = getRtmpPipe(rightCamera,'rtmp://'+rtmpserver+':1931/device/right1')
+
+topCamera = getCamera('rtmp://'+rtmpserver+':1931/yun/top1')
+topPipe = getRtmpPipe(topCamera,'rtmp://'+rtmpserver+':1931/device/top1')
+
 
 def processImg(frame,diff):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -118,7 +118,7 @@ def pushRtmp():
     #backFrame = getRtmpFrame(backCamera)
     ret2,backFrame = backCamera.read() 
     backPipe.stdin.write(backFrame.tostring())  
-    '''
+    
     #leftFrame = getRtmpFrame(leftCamera)
     ret3,leftFrame = leftCamera.read() 
     leftPipe.stdin.write(leftFrame.tostring())  
@@ -127,11 +127,11 @@ def pushRtmp():
     ret4,rightFrame = rightCamera.read() 
     rightPipe.stdin.write(rightFrame.tostring())  
 
-    
-    topFrame = getRtmpFrame(topCamera)
-    #ret5,topFrame = topCamera.read() 
+
+    #topFrame = getRtmpFrame(topCamera)
+    ret5,topFrame = topCamera.read() 
     topPipe.stdin.write(topFrame.tostring())  
-    '''
+
 
 while True:
     pushRtmp()
