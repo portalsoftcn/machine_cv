@@ -20,7 +20,7 @@ lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 serverIP9 = "192.168.1.9"
 serverIP11 = "192.168.1.11"
-rtmpserver = "47.111.146.164"
+rtmpserver = "47.105.153.68"
 
 def getCamera(cameraUrl):
     print(cameraUrl)
