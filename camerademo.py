@@ -1,14 +1,26 @@
 import cv2
 
+def set_gpus(gpu_index):
+    if type(gpu_index) == list:
+        gpu_index = ','.join(str(_) for _ in gpu_index)
+    if type(gpu_index) ==int:
+        gpu_index = str(gpu_index)
+
+
+'''
 camera1 = cv2.VideoCapture(0) # 从文件读取视频
 camera2 = cv2.VideoCapture(1) # 从文件读取视频
 camera3 = cv2.VideoCapture(2) # 从文件读取视频
+'''
+
     #这里的摄像头可以在树莓派3b上使用
 '''
 if (camera.isOpened()):# 判断视频是否打开 
     print ('Open camera')
 else:
     print ('Fail to open camera!')
+'''
+
 '''
 while True:
     ret1,frame1 = camera1.read()
@@ -20,3 +32,4 @@ while True:
     cv2.imshow("frame",frame3)
 
     cv2.waitKey(40)
+'''

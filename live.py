@@ -21,6 +21,8 @@ lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 serverIP9 = "192.168.1.9"
 serverIP11 = "192.168.1.11"
+serverIP14 = "192.168.1.14"
+serverIP18 = "192.168.1.18"
 
 def getCamera(cameraUrl):
     print(cameraUrl)
@@ -44,6 +46,8 @@ def getRtmpPipe(camera,rtmpUrl):
     
     # 直播管道输出 
     # ffmpeg推送rtmp 重点 ： 通过管道 共享数据的方式
+    #ffmpeg -hwaccel cuvid -c:v h264_cuvid -i rtmp://192.168.1.14:1931/yun/right -vcodec h264_nvenc -f flv  rtmp://192.168.1.14:1931/device/right
+
     frontCommand = ['ffmpeg',
         '-y',
         '-f', 'rawvideo',
@@ -52,30 +56,44 @@ def getRtmpPipe(camera,rtmpUrl):
         '-s', sizeStr,
         '-r', str(fps),
         '-i', '-',
-        '-c:v', 'libx264',
-        '-pix_fmt', 'yuv420p',
-        '-preset', 'ultrafast',
+        '-vcodec', 'h264_nvenc',
         '-f', 'flv', 
         rtmpUrl]
+
     #管道特性配置
     pipe = sp.Popen(frontCommand, stdin=sp.PIPE) #,shell=False
     return pipe
-frontCamera = getCamera("http://"+serverIP9+":8001/?action=stream")
-frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP9+':1931/device/front1')
-
-backCamera = getCamera("http://"+serverIP9+":8003/?action=stream")
-backPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP9+':1931/device/back1')
-
-leftCamera = getCamera("http://"+serverIP11+":8001/?action=stream")
-leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP11+':1931/device/left1')
-
-rightCamera = getCamera("http://"+serverIP11+":8003/?action=stream")
-rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP11+':1931/device/right1')
-
 '''
+frontCamera = getCamera('rtmp://'+serverIP14+':1931/yun/front')
+frontPipe = getRtmpPipe(frontCamera,'rtmp://'+serverIP14+':1931/device/front')
+
+backCamera = getCamera('rtmp://'+serverIP14+':1931/yun/back')
+backPipe = getRtmpPipe(backCamera,'rtmp://'+serverIP14+':1931/device/back')
+
+leftCamera = getCamera('rtmp://'+serverIP14+':1931/yun/left')
+leftPipe = getRtmpPipe(leftCamera,'rtmp://'+serverIP14+':1931/device/left')
+
+rightCamera = getCamera("http://192.168.1.18:8003/?action=stream")
+rightPipe = getRtmpPipe(rightCamera,'rtmp://'+serverIP14+':1931/device/right')
+
 topCamera = getCamera("http://"+deviceIP+":8009/?action=stream")
 topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
 '''
+
+frontCamera = getCamera("http://"+serverIP18+":8001/?action=stream")
+backCamera = getCamera("http://"+serverIP18+":8003/?action=stream")
+'''
+leftCamera = getCamera("http://"+serverIP14+":8003/?action=stream")
+rightCamera = getCamera("http://"+serverIP14+":8003/?action=stream")
+topCamera = getCamera("http://"+serverIP14+":8003/?action=stream")
+'''
+
+facePath = "/home/lvch/machine/faceimg/"
+frontpath = facePath+"front/"
+backpath = facePath+"back/"
+leftpath = facePath+"left/"
+rightpath = facePath+"right/"
+toppath = facePath+"top/"
 
 def processImg(frame,diff):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -110,28 +128,43 @@ def getRtmpFrame(camera):
     frame = processImg(frame,diff)
     return frame
 
+def getFileAmount(dir):
+    files = os.listdir(dir)
+    amount = len(files)
+    print(dir+" - "+str(amount))
+    return amount
+
+def removeFile(dir):
+    amount = getFileAmount(dir)
+    if amount > 1:
+        #delete 1.jpg
+        #rename 2.jpg to 1.jpg
+        os.remove(dir+"1.jpg")
+        os.rename(dir+"2.jpg",dir+"1.jpg")
+
 def pushRtmp():
-    #frontFrame = getRtmpFrame(frontCamera)
-    ret1,frontFrame = frontCamera.read() 
-    frontPipe.stdin.write(frontFrame.tostring())  
-    
-    #backFrame = getRtmpFrame(backCamera)
-    ret2,backFrame = backCamera.read() 
-    backPipe.stdin.write(backFrame.tostring())  
 
-    #leftFrame = getRtmpFrame(leftCamera)
-    ret3,leftFrame = leftCamera.read() 
-    leftPipe.stdin.write(leftFrame.tostring())  
-
-    #rightFrame = getRtmpFrame(rightCamera)
-    ret4,rightFrame = rightCamera.read() 
-    rightPipe.stdin.write(rightFrame.tostring())  
-
+    frontFrame = getRtmpFrame(frontCamera)
+    backFrame = getRtmpFrame(backCamera)
     '''
+    leftFrame = getRtmpFrame(leftCamera)
+    rightFrame = getRtmpFrame(rightCamera)
     topFrame = getRtmpFrame(topCamera)
-    #ret5,topFrame = topCamera.read() 
-    topPipe.stdin.write(topFrame.tostring())  
     '''
+    removeFile(frontpath)
+    removeFile(backpath)
+
+    frontFile = frontpath + str(getFileAmount(frontpath)+1)+".jpg"
+    backFile = backpath + str(getFileAmount(backpath)+1)+".jpg"
+
+    cv2.imwrite(frontFile,frontFrame)
+    cv2.imwrite(backFile,backFrame)
+    '''
+    cv2.imwrite(getFileAmount(leftpath)+".jpg",leftFrame)
+    cv2.imwrite(getFileAmount(rightpath)+".jpg",rightFrame)
+    cv2.imwrite(getFileAmount(toppath)+".jpg",topFrame)
+    '''
+
 
 while True:
     pushRtmp()
