@@ -1,0 +1,297 @@
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+ i:  i: Using V4L2 device.: /dev/video4
+Using V4L2 device.: /dev/video0
+ i:  i: Desired Resolution: 640 x 480
+Desired Resolution: 640 x 480
+ i:  i: Frames Per Second.: -1
+Frames Per Second.: -1
+ i:  i: Format............: JPEG
+Format............: JPEG
+ i:  i: TV-Norm...........: DEFAULT
+TV-Norm...........: DEFAULT
+ i: Using V4L2 device.: /dev/video6
+ i: Desired Resolution: 640 x 480
+ i: Frames Per Second.: -1
+ i: Format............: JPEG
+ i: TV-Norm...........: DEFAULT
+ i: Using V4L2 device.: /dev/video2
+ i: Desired Resolution: 640 x 480
+ i: Frames Per Second.: -1
+ i: Format............: JPEG
+ i: TV-Norm...........: DEFAULT
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+ o: www-folder-path......: ./www/
+ o: HTTP TCP port........: 8003
+ o: HTTP Listen Address..: (null)
+ o: username:password....: disabled
+ o: commands.............: enabled
+ o: www-folder-path......: ./www/
+ o: HTTP TCP port........: 8001
+ o: HTTP Listen Address..: (null)
+ o: username:password....: disabled
+ o: commands.............: enabled
+ o: www-folder-path......: ./www/
+ o: HTTP TCP port........: 8005
+ o: HTTP Listen Address..: (null)
+ o: username:password....: disabled
+ o: commands.............: enabled
+ o: www-folder-path......: ./www/
+ o: HTTP TCP port........: 8007
+ o: HTTP Listen Address..: (null)
+ o: username:password....: disabled
+ o: commands.............: enabled
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+ i: Using V4L2 device.: /dev/video0
+ i: Using V4L2 device.: /dev/video2
+ i: Desired Resolution: 640 x 480
+ i: Desired Resolution: 640 x 480
+ i: Frames Per Second.: -1
+ i: Frames Per Second.: -1
+ i: Format............: JPEG
+ i: TV-Norm...........: DEFAULT
+ i: Format............: JPEG
+ i: TV-Norm...........: DEFAULT
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+ o:  o: www-folder-path......: ./www/
+www-folder-path......: ./www/
+ o:  o: HTTP TCP port........: 8001
+HTTP TCP port........: 8003
+ o:  o: HTTP Listen Address..: (null)
+HTTP Listen Address..: (null)
+ o:  o: username:password....: disabled
+username:password....: disabled
+ o:  o: commands.............: enabled
+commands.............: enabled
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+ i:  i: Using V4L2 device.: /dev/video2
+Using V4L2 device.: /dev/video0
+ i: Desired Resolution: 640 x 480
+ i: Frames Per Second.: -1
+ i: Format............: JPEG
+ i: TV-Norm...........: DEFAULT
+ i: Desired Resolution: 640 x 480
+ i: Frames Per Second.: -1
+ i: Format............: JPEG
+ i: TV-Norm...........: DEFAULT
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+ o: www-folder-path......: ./www/
+ o: HTTP TCP port........: 8001
+ o: HTTP Listen Address..: (null)
+ o: username:password....: disabled
+ o: commands.............: enabled
+ o: www-folder-path......: ./www/
+ o: HTTP TCP port........: 8003
+ o: HTTP Listen Address..: (null)
+ o: username:password....: disabled
+ o: commands.............: enabled
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+MJPG Streamer Version: git rev: 501f6362c5afddcfb41055f97ae484252c85c912
+ i: Using V4L2 device.: /dev/video2
+ i: Desired Resolution: 640 x 480
+ i: Frames Per Second.: -1
+ i:  i: Using V4L2 device.: /dev/video0
+ i: Using V4L2 device.: /dev/video4
+Format............: JPEG
+ i:  i: Desired Resolution: 640 x 480
+ i: TV-Norm...........: DEFAULT
+Desired Resolution: 640 x 480
+ i: Frames Per Second.: -1
+ i: Frames Per Second.: -1
+ i: Format............: JPEG
+ i: Format............: JPEG
+ i: TV-Norm...........: DEFAULT
+ i: TV-Norm...........: DEFAULT
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_ADD - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt (relative): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Pan/tilt Reset: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Focus (absolute): Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Mode: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at LED1 Frequency: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Disable video processing: Inappropriate ioctl for device (25)
+UVCIOC_CTRL_MAP - Error at Raw bits per pixel: Inappropriate ioctl for device (25)
+ o:  o: www-folder-path......: ./www/
+www-folder-path......: ./www/
+ o:  o: HTTP TCP port........: 8001
+HTTP TCP port........: 8003
+ o:  o: HTTP Listen Address..: (null)
+HTTP Listen Address..: (null)
+ o:  o: username:password....: disabled
+username:password....: disabled
+ o:  o: commands.............: enabled
+commands.............: enabled
+ o: www-folder-path......: ./www/
+ o: HTTP TCP port........: 8005
+ o: HTTP Listen Address..: (null)
+ o: username:password....: disabled
+ o: commands.............: enabled
