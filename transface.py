@@ -24,10 +24,6 @@ for opt, arg in opts:
     elif opt in ("-s","--server"):
         serverip = arg
 
-print(face)
-print(videourl)
-print(serverip)
-
 url = "http://"+serverip+"/upload.php"
 fileName = face+".jpg"
 camera = cv2.VideoCapture(videourl)
@@ -37,3 +33,4 @@ while True:
     files = {"file": (fileName, open(fileName, "rb"), "image/jpg", {})}
     res = requests.request("POST", url, data={"face": face}, files=files)
     cv2.waitKey(25)
+    print(serverip + face + "trans success")
