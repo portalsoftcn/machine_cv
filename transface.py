@@ -24,7 +24,7 @@ for opt, arg in opts:
     elif opt in ("-s","--server"):
         serverip = arg
 
-url = "http://"+serverip+"/upload.php"
+url = "http://"+serverip+"/web/upload.php"
 fileName = face+".jpg"
 camera = cv2.VideoCapture(videourl)
 while True:
