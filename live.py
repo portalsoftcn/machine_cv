@@ -24,6 +24,15 @@ serverIP11 = "192.168.1.11"
 serverIP14 = "192.168.1.14"
 serverIP18 = "192.168.1.18"
 
+facePath = "/home/lvch/machine/uploadimg/"
+frontpath = facePath+"front/"
+backpath = facePath+"back/"
+leftpath = facePath+"left/"
+rightpath = facePath+"right/"
+toppath = facePath+"top/"
+
+faceCountArray = {"front":1,"back":1,"left":1,"right":1}
+
 def getCamera(cameraUrl):
     print(cameraUrl)
     camera = cv2.VideoCapture(cameraUrl) # 从文件读取视频
@@ -80,20 +89,14 @@ topCamera = getCamera("http://"+deviceIP+":8009/?action=stream")
 topPipe = getRtmpPipe(topCamera,'rtmp://'+serverIP+':1931/device/top1')
 '''
 
+'''
 frontCamera = getCamera("http://"+serverIP18+":8001/?action=stream")
 backCamera = getCamera("http://"+serverIP18+":8003/?action=stream")
-'''
 leftCamera = getCamera("http://"+serverIP14+":8003/?action=stream")
 rightCamera = getCamera("http://"+serverIP14+":8003/?action=stream")
 topCamera = getCamera("http://"+serverIP14+":8003/?action=stream")
 '''
 
-facePath = "/home/lvch/machine/faceimg/"
-frontpath = facePath+"front/"
-backpath = facePath+"back/"
-leftpath = facePath+"left/"
-rightpath = facePath+"right/"
-toppath = facePath+"top/"
 
 def processImg(frame,diff):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -121,11 +124,11 @@ def processImg(frame,diff):
     textUtil.putText(frame,text)
     return frame
 
-def getRtmpFrame(camera):
+def getRtmpFrame(currFrame):
     ###########################图片采集
-    ret, frame = camera.read() # 逐帧采集视频流
-    diff = roiDetectFront.getROIByDiff(frame)
-    frame = processImg(frame,diff)
+    #ret, frame = camera.read() # 逐帧采集视频流
+    diff = roiDetectFront.getROIByDiff(currFrame)
+    frame = processImg(currFrame,diff)
     return frame
 
 def getFileAmount(dir):
@@ -142,29 +145,25 @@ def removeFile(dir):
         os.remove(dir+"1.jpg")
         os.rename(dir+"2.jpg",dir+"1.jpg")
 
+def getAnalyseFrame(face):
+    faceDir = facePath + face + "/"
+    amount = getFileAmount(faceDir)
+    frameCount = faceCountArray[face]
+    if frameCount <= amount:
+        if frameCount <= 1:
+            frameCount = 1
+        else:
+            frameCount = amount - 1
+        currFrontFrame = cv2.imread(faceDir+str(frameCount)+".jpg")
+        analyseFrame = getRtmpFrame(currFrontFrame)
+        cv2.imshow(face,analyseFrame)
+        faceCountArray[face] = faceCountArray[face]  + 1
+
 def pushRtmp():
-
-    frontFrame = getRtmpFrame(frontCamera)
-    backFrame = getRtmpFrame(backCamera)
-    '''
-    leftFrame = getRtmpFrame(leftCamera)
-    rightFrame = getRtmpFrame(rightCamera)
-    topFrame = getRtmpFrame(topCamera)
-    '''
-    removeFile(frontpath)
-    removeFile(backpath)
-
-    frontFile = frontpath + str(getFileAmount(frontpath)+1)+".jpg"
-    backFile = backpath + str(getFileAmount(backpath)+1)+".jpg"
-
-    cv2.imwrite(frontFile,frontFrame)
-    cv2.imwrite(backFile,backFrame)
-    '''
-    cv2.imwrite(getFileAmount(leftpath)+".jpg",leftFrame)
-    cv2.imwrite(getFileAmount(rightpath)+".jpg",rightFrame)
-    cv2.imwrite(getFileAmount(toppath)+".jpg",topFrame)
-    '''
-
-
+    getAnalyseFrame("front")
+    getAnalyseFrame("back")
+    getAnalyseFrame("left")
+    getAnalyseFrame("right")
+    cv2.waitKey(5)
 while True:
     pushRtmp()
