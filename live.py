@@ -24,14 +24,15 @@ serverIP11 = "192.168.1.11"
 serverIP14 = "192.168.1.14"
 serverIP18 = "192.168.1.18"
 
-facePath = "/home/lvch/machine/uploadimg/"
-frontpath = facePath+"front/"
-backpath = facePath+"back/"
-leftpath = facePath+"left/"
-rightpath = facePath+"right/"
-toppath = facePath+"top/"
+uploadPath = "web/uploadimg/"
+facePath = "web/faceimg/"
+frontpath = uploadPath+"front/"
+backpath = uploadPath+"back/"
+leftpath = uploadPath+"left/"
+rightpath = uploadPath+"right/"
+toppath = uploadPath+"top/"
 
-faceCountArray = {"front":1,"back":1,"left":1,"right":1}
+faceCountArray = {"front":1,"back":1,"left":1,"right":1,"top":1}
 
 def getCamera(cameraUrl):
     print(cameraUrl)
@@ -134,7 +135,6 @@ def getRtmpFrame(currFrame):
 def getFileAmount(dir):
     files = os.listdir(dir)
     amount = len(files)
-    print(dir+" - "+str(amount))
     return amount
 
 def removeFile(dir):
@@ -146,24 +146,28 @@ def removeFile(dir):
         os.rename(dir+"2.jpg",dir+"1.jpg")
 
 def getAnalyseFrame(face):
-    faceDir = facePath + face + "/"
-    amount = getFileAmount(faceDir)
+    uploadDir = uploadPath + face + "/"
+    amount = getFileAmount(uploadDir)
     frameCount = faceCountArray[face]
-    if frameCount <= amount:
+    if frameCount < amount:
         if frameCount <= 1:
             frameCount = 1
         else:
-            frameCount = amount - 1
-        currFrontFrame = cv2.imread(faceDir+str(frameCount)+".jpg")
+            frameCount = amount - 1  
+        currFrontFrame = cv2.imread(uploadDir+str(frameCount)+".jpg")
         analyseFrame = getRtmpFrame(currFrontFrame)
-        cv2.imshow(face,analyseFrame)
-        faceCountArray[face] = faceCountArray[face]  + 1
+        faceCountArray[face] = frameCount + 1
+
+        faceDir = facePath + face + "/"
+        faceAmount = getFileAmount(faceDir) 
+        faceFile = faceDir+str(faceAmount+1) + ".jpg"
+        cv2.imwrite(faceFile,analyseFrame)
 
 def pushRtmp():
     getAnalyseFrame("front")
     getAnalyseFrame("back")
     getAnalyseFrame("left")
     getAnalyseFrame("right")
-    cv2.waitKey(5)
+    getAnalyseFrame("top")
 while True:
     pushRtmp()
