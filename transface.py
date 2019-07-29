@@ -33,4 +33,4 @@ while True:
     files = {"file": (fileName, open(fileName, "rb"), "image/jpg", {})}
     res = requests.request("POST", url, data={"face": face}, files=files)
     cv2.waitKey(25)
-    print(serverip + face + "trans success")
+    print(serverip + face + "  trans success")
