@@ -15,8 +15,12 @@ pip3 install opencv-python
 pip3 install scipy
 cd ../machine_cv
 tar -zxvf nginx-1.17.1.tar.gz
-mv nginx-rtmp-module nginx-1.17.1
 cd nginx-1.17.1
-./configure --prefix=/usr/local/nginx --add-module=nginx-rtmp-module  --with-http_ssl_module
+./configure --prefix=/usr/local/nginx  --with-http_ssl_module
 make && make install
-
+mv /root/machine_cv /usr/local/nginx/html
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+yum install php72w.x86_64 php72w-fpm.x86_64 php72w-cli.x86_64 php72w-common.x86_64 php72w-gd.x86_64 php72w-ldap.x86_64 php72w-mbstring.x86_64 php72w-mcrypt.x86_64 php72w-mysqlnd.x86_64 php72w-pdo.x86_64 php72w-pecl-redis.x86_64 php72w-opcache.x86_64 php72w-devel.x86_64 php72w-bcmath.x86_64 -y
+systemctl start php-fpm
+systemctl enable php-fpm
