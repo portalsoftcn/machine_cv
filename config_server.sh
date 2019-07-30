@@ -19,7 +19,7 @@ cd nginx-1.17.1
 ./configure --prefix=/usr/local/nginx  --with-http_ssl_module
 make && make install
 mv /root/machine_cv /usr/local/nginx/html
-cp /usr/local/nginx/html/nginx.conf /usr/local/nginx/conf
+cp /usr/local/nginx/html/machine_cv/nginx.conf /usr/local/nginx/conf
 cd /usr/local/nginx/sbin
 ./nginx -t
 ./nginx -s stop
