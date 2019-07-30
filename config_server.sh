@@ -22,5 +22,9 @@ mv /root/machine_cv /usr/local/nginx/html
 cp /usr/local/nginx/html/machine_cv/nginx.conf /usr/local/nginx/conf
 cd /usr/local/nginx/sbin
 ./nginx -t
-./nginx -s stop
 ./nginx
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+yum install php72w.x86_64 php72w-fpm.x86_64 php72w-cli.x86_64 php72w-common.x86_64 php72w-gd.x86_64 php72w-ldap.x86_64 php72w-mbstring.x86_64 php72w-mcrypt.x86_64 php72w-mysqlnd.x86_64 php72w-pdo.x86_64 php72w-pecl-redis.x86_64 php72w-opcache.x86_64 php72w-devel.x86_64 php72w-bcmath.x86_64 -y
+systemctl start php-fpm
+systemctl enable php-fpm
