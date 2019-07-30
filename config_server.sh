@@ -20,6 +20,8 @@ cd nginx-1.17.1
 make && make install
 mv /root/machine_cv /usr/local/nginx/html
 cp /usr/local/nginx/html/machine_cv/nginx.conf /usr/local/nginx/conf
+cd /usr/local/nginx/html/machine_cv
+chmod +777 web/ -R
 cd /usr/local/nginx/sbin
 ./nginx -t
 ./nginx
