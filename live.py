@@ -149,6 +149,7 @@ def getAnalyseFrame(face):
     uploadDir = uploadPath + face + "/"
     amount = getFileAmount(uploadDir)
     frameCount = faceCountArray[face]
+    '''
     if frameCount < amount:
         if frameCount <= 1:
             frameCount = 1
@@ -156,12 +157,24 @@ def getAnalyseFrame(face):
             frameCount = amount - 1  
         currFrontFrame = cv2.imread(uploadDir+str(frameCount)+".jpg")
         analyseFrame = getRtmpFrame(currFrontFrame)
+        
         faceCountArray[face] = frameCount + 1
-
         faceDir = facePath + face + "/"
         faceAmount = getFileAmount(faceDir) 
         faceFile = faceDir+str(faceAmount+1) + ".jpg"
         cv2.imwrite(faceFile,analyseFrame)
+    '''
+    if frameCount < amount:
+       
+        currFrontFrame = cv2.imread(uploadDir+str(frameCount)+".jpg")
+        analyseFrame = getRtmpFrame(currFrontFrame)
+        
+        faceDir = facePath + face + "/"
+        faceFile = faceDir+str(frameCount) + ".jpg"
+        cv2.imwrite(faceFile,analyseFrame)
+
+        faceCountArray[face] = faceCountArray[face]  + 1
+
 
 def pushRtmp():
     getAnalyseFrame("front")
