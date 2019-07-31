@@ -32,7 +32,8 @@ leftpath = uploadPath+"left/"
 rightpath = uploadPath+"right/"
 toppath = uploadPath+"top/"
 
-faceCountArray = {"front":1,"back":1,"left":1,"right":1,"top":1}
+faceCountArray = {"front":0,"back":0,"left":0,"right":0,"top":0}
+
 
 def getCamera(cameraUrl):
     print(cameraUrl)
@@ -99,7 +100,7 @@ topCamera = getCamera("http://"+serverIP14+":8003/?action=stream")
 '''
 
 
-def processImg(frame,diff):
+def processImg(frame,diff,lostCount):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
     imgGray = cv2.dilate(imgGray, es, iterations=2)
     maxCnt,hierarchy = contourUtil.getMaxContour(imgGray)
@@ -121,15 +122,15 @@ def processImg(frame,diff):
         rightRotate = abs(rotate)
         leftRotate = 90 - rightRotate
         
-    text = " rotates: %.1f - %.1f" % (leftRotate ,rightRotate)
+    text = " rotates: %.1f - %.1f  lost:%d" % (leftRotate ,rightRotate,lostCount)
     textUtil.putText(frame,text)
     return frame
 
-def getRtmpFrame(currFrame):
+def getRtmpFrame(currFrame,lostCount):
     ###########################图片采集
     #ret, frame = camera.read() # 逐帧采集视频流
     diff = roiDetectFront.getROIByDiff(currFrame)
-    frame = processImg(currFrame,diff)
+    frame = processImg(currFrame,diff,lostCount)
     return frame
 
 def getFileAmount(dir):
@@ -149,32 +150,22 @@ def getAnalyseFrame(face):
     uploadDir = uploadPath + face + "/"
     amount = getFileAmount(uploadDir)
     frameCount = faceCountArray[face]
-    '''
+
     if frameCount < amount:
         if frameCount <= 1:
             frameCount = 1
         else:
             frameCount = amount - 1  
+        
+        lostCount = frameCount -  faceCountArray[face] 
         currFrontFrame = cv2.imread(uploadDir+str(frameCount)+".jpg")
-        analyseFrame = getRtmpFrame(currFrontFrame)
+        analyseFrame = getRtmpFrame(currFrontFrame,lostCount)
         
         faceCountArray[face] = frameCount + 1
         faceDir = facePath + face + "/"
         faceAmount = getFileAmount(faceDir) 
         faceFile = faceDir+str(faceAmount+1) + ".jpg"
         cv2.imwrite(faceFile,analyseFrame)
-    '''
-    if frameCount < amount:
-       
-        currFrontFrame = cv2.imread(uploadDir+str(frameCount)+".jpg")
-        analyseFrame = getRtmpFrame(currFrontFrame)
-        
-        faceDir = facePath + face + "/"
-        faceFile = faceDir+str(frameCount) + ".jpg"
-        cv2.imwrite(faceFile,analyseFrame)
-
-        faceCountArray[face] = faceCountArray[face]  + 1
-
 
 def pushRtmp():
     getAnalyseFrame("front")
