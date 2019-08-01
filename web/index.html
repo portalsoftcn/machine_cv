@@ -2,24 +2,61 @@
 <html>
 <head>
 <title>Welcome to nginx!</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
+<script src="jquery-3.4.1.min.js"></script>
+<style type="text/css">
+    table{ border-collapse:collapse; border:solid 1px Black; }
+    table td{  border:solid 1px Black; padding:5px;}
+    table tr{ align:"center" ;valign:"middle" }
+  </style>
+
+<script>
+    function showFrame()
+    {
+        $.get("getframespath.php",function(data,status){
+            framesAmount = data.split(",");
+            $("#imgFront").attr('src',"faceimg/front/"+framesAmount[0]+".jpg");
+            $("#imgBack").attr('src',"faceimg/back/"+framesAmount[1]+".jpg");
+            $("#imgLeft").attr('src',"faceimg/left/"+framesAmount[2]+".jpg");
+            $("#imgRight").attr('src',"faceimg/right/"+framesAmount[3]+".jpg");
+            $("#imgTop").attr('src',"faceimg/top/"+framesAmount[4]+".jpg");
+        });
     }
-</style>
+    setInterval(showFrame, 40);
+</script>
+
 </head>
-<body>
-<h1>Welcome to nginx!</h1>
-<p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.</p>
+<body style="margin-top: 0px; margin-left:0px;"> 
+<table width="1200" height="900" >
+  <tr >
+    <td>&nbsp;</td>
+    <td>
+      <img id="imgTop" src="faceimg/top/1.jpg" width="400" height="300">
+     </td>
+    <td>&nbsp;</td>
+  </tr>
 
-<p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a>.<br/>
-Commercial support is available at
-<a href="http://nginx.com/">nginx.com</a>.</p>
+  <tr >
+      <td>
+            <img id="imgLeft" src="faceimg/left/1.jpg" width="400" height="300">
+        </td>
 
-<p><em>Thank you for using nginx.</em></p>
+      <td>
+            <img id="imgFront" src="faceimg/front/1.jpg" width="400" height="300">
+       </td>
+
+      <td><img id="imgRight" src="faceimg/right/1.jpg" width="400" height="300"></td>
+
+    </tr>
+
+    <tr >
+        <td>&nbsp;</td>
+        <td>
+                <img id="imgBack" src="faceimg/back/1.jpg" width="400" height="300">
+         </td>
+        <td>&nbsp;</td>
+      </tr>
+
+</table>
+
 </body>
 </html>
