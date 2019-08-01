@@ -12,6 +12,7 @@
 <script>
     function showFrame()
     {
+        
         $.get("getframespath.php",function(data,status){
             framesAmount = data.split(",");
             $("#imgFront").attr('src',"faceimg/front/"+framesAmount[0]+".jpg");
@@ -19,6 +20,13 @@
             $("#imgLeft").attr('src',"faceimg/left/"+framesAmount[2]+".jpg");
             $("#imgRight").attr('src',"faceimg/right/"+framesAmount[3]+".jpg");
             $("#imgTop").attr('src',"faceimg/top/"+framesAmount[4]+".jpg");
+            
+            $("#divFront").text("front:"+framesAmount[0]);
+            $("#divBack").text("back:"+framesAmount[1]);
+            $("#divLeft").text("left:"+framesAmount[2]);
+            $("#divRight").text("right:"+framesAmount[3]);
+            $("#divTop").text("top:"+framesAmount[4]);
+
         });
     }
     setInterval(showFrame, 33);
@@ -31,6 +39,7 @@
     <td>&nbsp;</td>
     <td>
       <img id="imgTop" src="faceimg/top/1.jpg" width="400" height="300">
+      <div id="divTop" >front</div>
      </td>
     <td>&nbsp;</td>
   </tr>
@@ -38,13 +47,20 @@
   <tr >
       <td>
             <img id="imgLeft" src="faceimg/left/1.jpg" width="400" height="300">
+            <div id="divLeft" >front</div>
         </td>
 
       <td>
             <img id="imgFront" src="faceimg/front/1.jpg" width="400" height="300">
+            <div id="divFront" >front</div>
+            
        </td>
 
-      <td><img id="imgRight" src="faceimg/right/1.jpg" width="400" height="300"></td>
+      <td>
+        <img id="imgRight" src="faceimg/right/1.jpg" width="400" height="300">
+        <div id="divRight" >right</div>
+        
+      </td>
 
     </tr>
 
@@ -52,6 +68,7 @@
         <td>&nbsp;</td>
         <td>
                 <img id="imgBack" src="faceimg/back/1.jpg" width="400" height="300">
+                <div id="divBack" >front</div>
          </td>
         <td>&nbsp;</td>
       </tr>
