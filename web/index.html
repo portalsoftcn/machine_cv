@@ -10,9 +10,30 @@
   </style>
 
 <script>
+    framesAmount = [1,1,1,1,1];
+    
     function showFrame()
     {
         
+            $("#imgFront").attr('src',"faceimg/front/"+framesAmount[0]+".jpg");
+            $("#imgBack").attr('src',"faceimg/back/"+framesAmount[1]+".jpg");
+            $("#imgLeft").attr('src',"faceimg/left/"+framesAmount[2]+".jpg");
+            $("#imgRight").attr('src',"faceimg/right/"+framesAmount[3]+".jpg");
+            $("#imgTop").attr('src',"faceimg/top/"+framesAmount[4]+".jpg");
+            
+            $("#divFront").text("front:"+framesAmount[0]);
+            $("#divBack").text("back:"+framesAmount[1]);
+            $("#divLeft").text("left:"+framesAmount[2]);
+            $("#divRight").text("right:"+framesAmount[3]);
+            $("#divTop").text("top:"+framesAmount[4]);
+
+            for(i = 0;i<5;i++)
+            {
+              framesAmount[i] = framesAmount[i]  + 1;
+            }
+            
+
+        /*
         $.get("getframespath.php",function(data,status){
             framesAmount = data.split(",");
             $("#imgFront").attr('src',"faceimg/front/"+framesAmount[0]+".jpg");
@@ -26,8 +47,8 @@
             $("#divLeft").text("left:"+framesAmount[2]);
             $("#divRight").text("right:"+framesAmount[3]);
             $("#divTop").text("top:"+framesAmount[4]);
-
         });
+        */
     }
     setInterval(showFrame, 33);
 </script>
