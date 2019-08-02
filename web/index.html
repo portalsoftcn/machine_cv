@@ -14,7 +14,7 @@
     
     function showFrame()
     {
-        
+            /*
             $("#imgFront").attr('src',"faceimg/front/"+framesAmount[0]+".jpg");
             $("#imgBack").attr('src',"faceimg/back/"+framesAmount[1]+".jpg");
             $("#imgLeft").attr('src',"faceimg/left/"+framesAmount[2]+".jpg");
@@ -26,7 +26,10 @@
             $("#divLeft").text("left:"+framesAmount[2]);
             $("#divRight").text("right:"+framesAmount[3]);
             $("#divTop").text("top:"+framesAmount[4]);
+            */
 
+            $("#imgBack").attr('src',"faceimg/back/"+framesAmount[1]+".jpg");
+            $("#divBack").text("back:"+framesAmount[1]);
             for(i = 0;i<5;i++)
             {
               framesAmount[i] = framesAmount[i]  + 1;
@@ -50,7 +53,7 @@
         });
         */
     }
-    setInterval(showFrame, 33);
+    setInterval(showFrame, 25);
 </script>
 
 </head>
