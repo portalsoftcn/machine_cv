@@ -1,6 +1,6 @@
 <?php
 
-/*
+
 function getFileAmount($face)
 {
     $faceDir = "faceimg/".$face."/";
@@ -8,7 +8,7 @@ function getFileAmount($face)
     $fileCount = count($jpgFiles);
     return $fileCount-1;
 }
-*/
+
 
 $facesAmount = [];
 $result = "";
