@@ -1,8 +1,10 @@
 import os
 import cv2
 import subprocess as sp
+import time;
 from util import ContourUtil,TextUtil,ImgUtil,HSVFilteUtil
 from roi import ROIDetect
+
 
 roiDetectFront = ROIDetect()
 contourUtil = ContourUtil()
@@ -31,6 +33,14 @@ rightpath = uploadPath+"right/"
 toppath = uploadPath+"top/"
 
 faceCountArray = {"front":0,"back":0,"left":0,"right":0,"top":0}
+
+frontCamera = cv2.VideoCapture("http://192.168.1.6:8000/?action=stream")
+backCamera = cv2.VideoCapture("http://192.168.1.6:8002/?action=stream")
+'''
+leftCamera = cv2.VideoCapture("http://192.168.1.7:8000/?action=stream")
+rightCamera = cv2.VideoCapture("http://192.168.1.7:8002/?action=stream")
+'''
+get_now_milli_time = lambda:int( time.time() * 1000 )
 
 def processImg(frame,diff,lostCount):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -70,7 +80,8 @@ def getFileAmount(dir):
     amount = len(files)
     return amount
 
-def getAnalyseFrame(face):
+def getAnalyseFrame(face,camera):
+    '''
     uploadDir = uploadPath + face + "/"
     amount = getFileAmount(uploadDir)
     frameCount = faceCountArray[face]
@@ -83,6 +94,7 @@ def getAnalyseFrame(face):
         
         lostCount = frameCount -  faceCountArray[face] 
         currFrontFrame = cv2.imread(uploadDir+str(frameCount)+".jpg")
+        lostCount = 0
         analyseFrame = getRtmpFrame(currFrontFrame,lostCount)
         
         faceCountArray[face] = frameCount + 1
@@ -91,9 +103,30 @@ def getAnalyseFrame(face):
         faceFile = faceDir+str(faceAmount+1) + ".jpg"
         cv2.imwrite(faceFile,analyseFrame)
 
+    '''
+    lostCount = 0
+    ret,currFrontFrame = camera.read()
+    analyseFrame = getRtmpFrame(currFrontFrame,lostCount)
+    faceDir = facePath + face + "/"
+    faceAmount = getFileAmount(faceDir) 
+    faceFile = faceDir+str(faceAmount+1) + ".jpg"
+    cv2.imwrite(faceFile,analyseFrame)
+
 while True:
-    getAnalyseFrame("front")
+    read_before = get_now_milli_time()
+    for i in range(1,21):
+        getAnalyseFrame("front",frontCamera)
+        '''
+        getAnalyseFrame("back",backCamera)
+        getAnalyseFrame("left",leftCamera)
+        getAnalyseFrame("right",rightCamera)
+        '''
+
+    read_after = get_now_milli_time()
+    print("30 times read use:"+str(read_after - read_before))
+    '''
     getAnalyseFrame("back")
     getAnalyseFrame("left")
     getAnalyseFrame("right")
     getAnalyseFrame("top")
+    '''
