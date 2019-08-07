@@ -1,7 +1,8 @@
 import os
 import cv2
 import subprocess as sp
-import time;
+import time
+import requests
 from util import ContourUtil,TextUtil,ImgUtil,HSVFilteUtil
 from roi import ROIDetect
 
@@ -18,29 +19,33 @@ kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(2, 2))
 lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 #业务数据计算
-
+'''
 serverIP9 = "192.168.1.9"
 serverIP11 = "192.168.1.11"
 serverIP14 = "192.168.1.14"
 serverIP18 = "192.168.1.18"
-
 uploadPath = "web/uploadimg/"
-facePath = "web/faceimg/"
 frontpath = uploadPath+"front/"
 backpath = uploadPath+"back/"
 leftpath = uploadPath+"left/"
 rightpath = uploadPath+"right/"
 toppath = uploadPath+"top/"
-
-faceCountArray = {"front":0,"back":0,"left":0,"right":0,"top":0}
-
-frontCamera = cv2.VideoCapture("http://192.168.1.6:8000/?action=stream")
-backCamera = cv2.VideoCapture("http://192.168.1.6:8002/?action=stream")
 '''
-leftCamera = cv2.VideoCapture("http://192.168.1.7:8000/?action=stream")
-rightCamera = cv2.VideoCapture("http://192.168.1.7:8002/?action=stream")
-'''
+
+facePath = "web/faceimg/"
+
+faceCountArray = {"front":1,"back":1,"left":1,"right":1,"top":1}
+
+frontCamera = cv2.VideoCapture("http://device1.portalsoft.cn:8000/?action=stream")
+backCamera = cv2.VideoCapture("http://device1.portalsoft.cn:8002/?action=stream")
+
+leftCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8000/?action=stream")
+rightCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8002/?action=stream")
+
+count_url = "http://localhost:8080/machine/countfileserv?"
+
 get_now_milli_time = lambda:int( time.time() * 1000 )
+slowTimes = 0
 
 def processImg(frame,diff,lostCount):
     imgGray = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1]
@@ -68,9 +73,9 @@ def processImg(frame,diff,lostCount):
     textUtil.putText(frame,text)
     return frame
 
-def getRtmpFrame(currFrame,lostCount):
+def getRtmpFrame(camera,lostCount):
     ###########################图片采集
-    #ret, frame = camera.read() # 逐帧采集视频流
+    ret, currFrame = camera.read() # 逐帧采集视频流
     diff = roiDetectFront.getROIByDiff(currFrame)
     frame = processImg(currFrame,diff,lostCount)
     return frame
@@ -82,51 +87,45 @@ def getFileAmount(dir):
 
 def getAnalyseFrame(face,camera):
     '''
-    uploadDir = uploadPath + face + "/"
-    amount = getFileAmount(uploadDir)
-    frameCount = faceCountArray[face]
-
-    if frameCount < amount:
-        if frameCount <= 1:
-            frameCount = 1
-        else:
-            frameCount = amount - 1  
-        
-        lostCount = frameCount -  faceCountArray[face] 
-        currFrontFrame = cv2.imread(uploadDir+str(frameCount)+".jpg")
-        lostCount = 0
-        analyseFrame = getRtmpFrame(currFrontFrame,lostCount)
-        
-        faceCountArray[face] = frameCount + 1
-        faceDir = facePath + face + "/"
-        faceAmount = getFileAmount(faceDir) 
-        faceFile = faceDir+str(faceAmount+1) + ".jpg"
-        cv2.imwrite(faceFile,analyseFrame)
-
-    '''
-    lostCount = 0
+    read_before = get_now_milli_time()
     ret,currFrontFrame = camera.read()
-    analyseFrame = getRtmpFrame(currFrontFrame,lostCount)
-    faceDir = facePath + face + "/"
-    faceAmount = getFileAmount(faceDir) 
-    faceFile = faceDir+str(faceAmount+1) + ".jpg"
-    cv2.imwrite(faceFile,analyseFrame)
+    read_after = get_now_milli_time()
+    '''
 
+    analy_before = get_now_milli_time()
+    analyseFrame = getRtmpFrame(camera,0)
+    analy_after = get_now_milli_time()
+
+    write_before = get_now_milli_time()
+    faceAmount = faceCountArray[face]
+    faceFile = facePath + face + "/"+str(faceAmount) + ".jpg"
+    count_after = get_now_milli_time()
+    cv2.imwrite(faceFile,analyseFrame)
+    write_after = get_now_milli_time()
+    #cv2.imshow(face,analyseFrame)
+    faceCountArray[face] = faceAmount + 1
+    requests.get(count_url,"count="+str(faceAmount))
+    count_after = get_now_milli_time()
+    #print("count use:"+str(count_after-write_after))
+    #print("per time read use:"+str(read_after - read_before) + " analy use:" +str(analy_after - analy_before)+ " write use:"+str(write_after - write_before) + " total use:"+str(write_after - read_before))
+    #print("  write detail count use:"+str(count_after - write_before)+ " write use:"+str(write_after - count_after) + " total use:"+str(write_after - write_before))
 while True:
     read_before = get_now_milli_time()
-    for i in range(1,21):
-        getAnalyseFrame("front",frontCamera)
-        '''
-        getAnalyseFrame("back",backCamera)
-        getAnalyseFrame("left",leftCamera)
-        getAnalyseFrame("right",rightCamera)
-        '''
-
+    getAnalyseFrame("front",frontCamera)
+    getAnalyseFrame("back",backCamera)
+    getAnalyseFrame("left",leftCamera)
+    #getAnalyseFrame("right",rightCamera)
     read_after = get_now_milli_time()
-    print("30 times read use:"+str(read_after - read_before))
+    fps = read_after - read_before
+    if fps <= 50 :
+        fps = 1000 / fps
+        fps = int(fps)
+        slowTimes = slowTimes + 1
+        print("20 times read use:"+str(read_after - read_before)+" fps:"+str(fps) + " slow time:"+str(slowTimes))
     '''
-    getAnalyseFrame("back")
     getAnalyseFrame("left")
     getAnalyseFrame("right")
     getAnalyseFrame("top")
     '''
+    cv2.waitKey(1)
+    
