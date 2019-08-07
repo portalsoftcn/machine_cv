@@ -42,7 +42,7 @@ backCamera = cv2.VideoCapture("http://device1.portalsoft.cn:8002/?action=stream"
 leftCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8000/?action=stream")
 rightCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8002/?action=stream")
 
-count_url = "http://localhost:8080/machine/countfileserv?"
+count_url = "http://localhost/countfile.php?"
 
 get_now_milli_time = lambda:int( time.time() * 1000 )
 slowTimes = 0
