@@ -43,6 +43,7 @@ leftCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8000/?action=stream"
 rightCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8002/?action=stream")
 
 count_url = "http://localhost/countfile.php?"
+faceAmount = 1
 
 get_now_milli_time = lambda:int( time.time() * 1000 )
 slowTimes = 0
@@ -97,15 +98,15 @@ def getAnalyseFrame(face,camera):
     analy_after = get_now_milli_time()
 
     write_before = get_now_milli_time()
-    faceAmount = faceCountArray[face]
     faceFile = facePath + face + "/"+str(faceAmount) + ".jpg"
+    #print("faceFile:"+faceFile)
     count_after = get_now_milli_time()
-    cv2.imwrite(faceFile,analyseFrame)
+
+    writeImg = cv2.resize(analyseFrame,(400,300),interpolation=cv2.INTER_CUBIC) 
+
+    cv2.imwrite(faceFile,writeImg)
     write_after = get_now_milli_time()
     #cv2.imshow(face,analyseFrame)
-    faceCountArray[face] = faceAmount + 1
-    requests.get(count_url,"count="+str(faceAmount))
-    count_after = get_now_milli_time()
     #print("count use:"+str(count_after-write_after))
     #print("per time read use:"+str(read_after - read_before) + " analy use:" +str(analy_after - analy_before)+ " write use:"+str(write_after - write_before) + " total use:"+str(write_after - read_before))
     #print("  write detail count use:"+str(count_after - write_before)+ " write use:"+str(write_after - count_after) + " total use:"+str(write_after - write_before))
@@ -114,18 +115,16 @@ while True:
     getAnalyseFrame("front",frontCamera)
     getAnalyseFrame("back",backCamera)
     getAnalyseFrame("left",leftCamera)
-    #getAnalyseFrame("right",rightCamera)
+    getAnalyseFrame("right",rightCamera)
     read_after = get_now_milli_time()
     fps = read_after - read_before
-    if fps <= 50 :
-        fps = 1000 / fps
-        fps = int(fps)
+    fps = 1000 / fps
+    fps = int(fps)
+    if fps <= 20 :
         slowTimes = slowTimes + 1
-        print("20 times read use:"+str(read_after - read_before)+" fps:"+str(fps) + " slow time:"+str(slowTimes))
-    '''
-    getAnalyseFrame("left")
-    getAnalyseFrame("right")
-    getAnalyseFrame("top")
-    '''
+    #getAnalyseFrame("top")
+    print("process use:"+str(read_after - read_before)+" fps:"+str(fps) + " slow time:"+str(slowTimes))
+    reqUrl = count_url+"count="+str(faceAmount)
+    requests.get(reqUrl)
+    faceAmount = faceAmount + 1
     cv2.waitKey(1)
-    
