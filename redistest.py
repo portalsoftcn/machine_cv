@@ -1,15 +1,11 @@
+import redis
 import cv2
 import time
-import requests
 
+red = redis.Redis(host='localhost', port=6379)
 get_now_milli_time = lambda:int( time.time() * 1000 )
 while True:
     read_before = get_now_milli_time()
-    time.sleep(0.01)
-
-    count_url = "http://localhost:8080/countfileserv"
-    response = requests.get(count_url)
-
+    count = red.get('count')
     read_after = get_now_milli_time()
-
-    print("count is:"+response.text+" read use:"+str(read_after - read_before))
+    print("count is:"+str(count)+" read use:"+str(read_after - read_before))
