@@ -21,18 +21,6 @@ kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(2, 2))
 lower_blue,upper_blue = hsvUtil.getFilteRange()
 
 #业务数据计算
-'''
-serverIP9 = "192.168.1.9"
-serverIP11 = "192.168.1.11"
-serverIP14 = "192.168.1.14"
-serverIP18 = "192.168.1.18"
-uploadPath = "web/uploadimg/"
-frontpath = uploadPath+"front/"
-backpath = uploadPath+"back/"
-leftpath = uploadPath+"left/"
-rightpath = uploadPath+"right/"
-toppath = uploadPath+"top/"
-'''
 
 facePath = "web/faceimg/"
 
@@ -43,15 +31,13 @@ backCamera = cv2.VideoCapture("http://device1.portalsoft.cn:8002/?action=stream"
 topCamera = cv2.VideoCapture("http://device1.portalsoft.cn:8004/?action=stream")
 
 leftCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8000/?action=stream")
-rightCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8002/?action=stream")
+#rightCamera = cv2.VideoCapture("http://device2.portalsoft.cn:8002/?action=stream")
 
 faceAmount = 1
 
 get_now_milli_time = lambda:int( time.time() * 1000 )
 slowTimes = 0
 
-#pool = redis.ConnectionPool(host='localhost', port=6379)
-#red = redis.Redis(connection_pool=pool)
 red = redis.Redis(host='localhost', port=6379)
 
 def processImg(frame,diff,lostCount):
@@ -97,30 +83,23 @@ def storageImg(filePath,face):
         encode_before = get_now_milli_time()
         base64_data = base64.b64encode(f.read())#使用base64进行加密
         encode_after = get_now_milli_time()
-
         preIndex = filePath.index("/")+9
         #print(" imgKey:"+filePath[preIndex:])
         red.set(filePath[preIndex:],base64_data)
-        storage_after = get_now_milli_time() 
+        storage_after = get_now_milli_time()
         os.remove(filePath)
         print("storage encode use:"+str(encode_after - encode_before) + " db use:"+str(storage_after - encode_after) + " len:"+str(len(base64_data)))
     
 def getAnalyseFrame(face,camera):
-    '''
-    read_before = get_now_milli_time()
-    ret,currFrontFrame = camera.read()
-    read_after = get_now_milli_time()
-    '''
     
     analy_before = get_now_milli_time()
     analyseFrame = getRtmpFrame(camera,0)
     analy_after = get_now_milli_time()
 
     write_before = get_now_milli_time()
-    
     faceFile = facePath + face + "/"+str(faceAmount) + ".jpg"
     #print("faceFile:"+faceFile)
-    writeImg = cv2.resize(analyseFrame,(400,300),interpolation=cv2.INTER_CUBIC) 
+    writeImg = cv2.resize(analyseFrame,(400,300),interpolation=cv2.INTER_CUBIC)
     cv2.imwrite(faceFile,writeImg)
     write_after = get_now_milli_time()
     storageImg(faceFile,face)
@@ -138,7 +117,8 @@ while True:
     getAnalyseFrame("back",backCamera)
     getAnalyseFrame("top",topCamera)
     getAnalyseFrame("left",leftCamera)
-    getAnalyseFrame("right",rightCamera)
+
+    #getAnalyseFrame("right",rightCamera)
     red.set("count",faceAmount)
 
     read_after = get_now_milli_time()
@@ -147,6 +127,6 @@ while True:
     fps = int(fps)
     if fps <25 :
         slowTimes = slowTimes + 1
-    print("*****************************************process use:"+str(read_after - read_before)+" fps:"+str(fps) + " slow time:"+str(slowTimes))
+    print("process use:"+str(read_after - read_before)+" fps:"+str(fps) + " slow time:"+str(slowTimes))
     faceAmount = faceAmount + 1
     
